@@ -9,6 +9,6 @@ Veterinarska ambulanta bi rada imela natančno evidenco o svojih pacientih (pasm
 Lastniki živali, živali, zdravljenje, zdravila in cene zdravil, veterinarji, ...
 
 #### Ekipa:
-Tomaž Kramer
-Saša Levstik
+- Tomaž Kramer
+- Saša Levstik
 
