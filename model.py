@@ -76,3 +76,15 @@ def vstavi_zdravilo(imeZdravila, recept, zaloga, minZaloga, cena):
     VALUES (?,?,?,?,?)'''
     con.execute(sql, [recept, cena, zaloga, imeZdravila, minZaloga])
     con.commit()
+
+def vstavi_storitev(ime, cena):
+    sql = ''' INSERT INTO storitve (ime, cena) VALUES (?,?)'''
+    pridobiImena = '''SELECT ime FROM storitve'''
+    if ime not in list(con.execute(pridobiImena,[ime,cena])):
+        con.execute(sql, [ime, cena])
+    else:
+        raise Exception("Zdravilo že imate")
+
+def spremeni_ceno_stortve(idStor, cena):
+    sql = '''UPDATE storitve SET cena = ? WHERE storitve.ime = ?'''
+    con.execute(sql, [cena, idStor])
