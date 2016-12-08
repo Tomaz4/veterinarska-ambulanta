@@ -1,6 +1,6 @@
 import sqlite3
 
-con = sqlite3.connect('veterinarska_ambulanta.sqlite')
+con = sqlite3.connect('Sql/veterinarska_ambulanta.sqlite')
 
 # test ali dela
 def barve():
@@ -95,9 +95,11 @@ def vstavi_storitev(ime, cena):
     sql = ''' INSERT INTO storitve (ime, cena) VALUES (?,?)'''
     pridobiImena = '''SELECT ime FROM storitve'''
     if ime not in list(con.execute(pridobiImena,[ime,cena])):
-        con.execute(sql, [ime, cena])
+        cur = con.execute(sql, [ime, cena])        
     else:
         raise Exception("Zdravilo že imate")
+    con.commit()
+    return cur.lastrowid
 
 def spremeni_ceno_stortve(idStor, cena):
     sql = '''UPDATE storitve SET cena = ? WHERE storitve.ime = ?'''
@@ -152,9 +154,49 @@ def popravi_storitev_cena(id_storitve,nova_cena):
     con.execute(sql,[nova_cena,id_storitve])
     con.commit()
 
+def vstavi_barvo(barvaPodaj):
+    sql = ''' INSERT INTO barva_zivali (barva) VALUES (?)'''
+    preberiBarva = '''SELECT barva FROM barva_zivali WHERE barva = ?'''
+    cur = con.execute(preberiBarva, [barvaPodaj])
+    rezultat = cur.fetchone()
+    if rezultat != None:
+        raise Exception('Barva je že notri!')
+    con.execute(sql, [barvaPodaj])
+    con.commit()
 
+def posodobi_barvo(id_barva, novaBarva):
+    sql = '''UPDATE barva_zivali SET barva = ? WHERE barva_zivali.id = ?'''
+    con.execute(sql, [novaBarva, id_barva])
+    con.commit()
 
+def lastnik_vstavi(imeVstavi, priimekVstavi, telefonVstavi, naslovVstavi = None, emailVstavi = None):
+    sql = '''INSERT INTO lastniki (ime, priimek, email, naslov, telefon)
+           VALUES (?,?,?,?,?)'''
+    cur = con.execute(sql, [imeVstavi, priimekVstavi, emailVstavi, naslovVstavi, telefonVstavi])
+    con.commit()
+    return cur.lastrowid
 
-    
+def zdravilo_spremeni_ime(id_zdravila, novoIme):
+    sql = '''UPDATE zdravila SET ime = ? WHERE zdravilo.id = ?'''
+    con.execute(sql, [novoIme, id_zdravila])
+    con.commit()
 
-    
+def zdravilo_spremeni_trenutnoZalogo(id_zdravila, novaZaloga):
+    sql = '''UPDATE zdravila SET trenutna_zaloga = ? WHERE zdravilo.id = ?'''
+    con.execute(sql, [novaZaloga, id_zdravila])
+    con.commit()
+
+def zdravilo_spremeni_ceno(id_zdravila, novaCena):
+    sql = '''UPDATE zdravila SET cena = ? WHERE zdravilo.id = ?'''
+    con.execute(sql, [novaCena, id_zdravila])
+    con.commit()
+
+def zdravilo_spremeni_minZaloga(id_zdravila, novaMinZaloga):
+    sql = '''UPDATE zdravila SET minimalna_zaloga = ? WHERE zdravilo.id = ?'''
+    con.execute(sql, [novaMinZaloga, id_zdravila])
+    con.commit()
+
+def zival_spremeni_opombe(id_zivali, opombaNova):
+    sql = '''UPDATE zivali SET opombe = ? WHERE zivali.id = ?'''
+    con.execute(sql, [opombaNova, id_zdravila])
+    con.commit()
