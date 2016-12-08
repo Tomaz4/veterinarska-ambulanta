@@ -70,4 +70,9 @@ def vstavi_zival(ime, datum_rojstva, spol, barva, pasma, lastnik):
     vstavi_zival_pomozna(ime,datum_rojstva,spol,barva,pasma,lastnik)
 
 
-    
+def vstavi_zdravilo(imeZdravila, recept, zaloga, minZaloga, cena):
+    imeZdravila = imeZdravila.strip()
+    sql = '''INSERT INTO zdravila (recept, cena, trenutna_zaloga, ime, minimalna_zaloga)
+    VALUES (?,?,?,?,?)'''
+    con.execute(sql, [recept, cena, zaloga, imeZdravila, minZaloga])
+    con.commit()
