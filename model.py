@@ -102,3 +102,59 @@ def vstavi_storitev(ime, cena):
 def spremeni_ceno_stortve(idStor, cena):
     sql = '''UPDATE storitve SET cena = ? WHERE storitve.ime = ?'''
     con.execute(sql, [cena, idStor])
+    con.commit()
+
+def vstavi_pasmo(pasmaZ):
+    ''' Funkcija vstavi pasmo v bazo. '''
+    sql = ''' INSERT INtO pasma (pasme) VALUES (?) '''
+    alisoNotri = ''' SELECT pasme FROM pasma where pasme = ? '''
+    cur = con.execute(alisoNotri,[pasmaZ])
+    rez = cur.fetchone()
+    if rez is None:
+        con.execute(sql,[pasmaZ])
+    else:
+        raise Exception('Pasma je že v bazi. ')
+    con.commit()
+
+def posodobi_pasmo(id_pasme,nova_pasma):
+    ''' Funkcija posodobi pasmo (èe se nekdo zmoti pri tipkanju
+        in to želi popraviti. '''
+    sql = ''' UPDATE pasma SET pasme = ? where id = ? '''
+    con.execute(sql,[nova_pasma,id_pasme])
+    con.commit()
+
+def posodi_lastnika_priimek(id_lastnika,nov_priimek):
+    sql = ''' UPDATE lastniki SET priimek = ? where id = ? '''
+    con.execute(sql,[nov_priimek, id_lastnika])
+    con.commit()
+
+def posodobi_lastnika_email(id_lastnika,nov_mail):
+    sql = ''' UPDATE lastniki SET email = ? where id = ? '''
+    con.execute(sql,[nov_mail,id_lastnika])
+    con.commit()
+
+def posodobi_lastnika_naslov(id_lastnika,nov_naslov):
+    sql = ''' UPDATE lastniki SET naslov = ? where id = ? '''
+    con.execute(sql,[nov_naslov,id_lastnika])
+    con.commit()
+
+def posodobi_lastnika_telefon(id_lastnika,nov_telefon):
+    sql = ''' UPDATE lastniki SET telefon = ? where id = ? '''
+    con.execute(sql,[nov_telefon,id_lastnika])
+    con.commit()
+
+def popravi_storitev_ime(id_storitve,novo_ime):
+    sql = ''' UPDATE storitve SET ime = ? where id = ? '''
+    con.execute(sql,[novo_ime,id_storitve])
+    con.commit()
+def popravi_storitev_cena(id_storitve,nova_cena):
+    sql = ''' UPDATE storitve SET cena = ? where id = ? '''
+    con.execute(sql,[nova_cena,id_storitve])
+    con.commit()
+
+
+
+
+    
+
+    
