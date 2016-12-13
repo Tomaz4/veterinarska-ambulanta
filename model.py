@@ -36,16 +36,9 @@ def skupna_cena(obisk):
 ##    sql_id_lastnika = '''SELECT id FROM lastniki WHERE ime = ? and priimek = ?'''
 ##    pass
     
-def vstavi_zival_pomozna(ime, datum_rojstva, spol, barva, pasma, lastnik, telefon_lastnika):
+def vstavi_zival_pomozna(ime, datum_rojstva, spol, barva, pasma, idosebe):
     ''' Funkcija prejme ime živali, datum rojstva, spol kot Male oziroma
         Female, barvo, pasmo ter lastnika, ki je že v bazi podatkov.'''
-    sql_id_lastnika = '''SELECT id FROM lastniki WHERE ime = ? and priimek = ? and telefon = ?'''
-    seznam = []
-    imeL = lastnik.split()[0]
-    priimekL = lastnik.split()[1]
-    for idos in con.execute(sql_id_lastnika,[imeL,priimekL,telefon_lastnika]):
-        seznam.append(idos)
-    idosebe = seznam[0][0]
     sql_id_pasme = '''SELECT id from pasma where pasme = ?'''
     for idpasma in con.execute(sql_id_pasme,[pasma]):
         idpasma = idpasma[0]
@@ -54,18 +47,17 @@ def vstavi_zival_pomozna(ime, datum_rojstva, spol, barva, pasma, lastnik, telefo
         idbarva = idbarva[0]
     sql = '''INSERT INTO zivali (ime, datum_rojstva, spol, id_lastnika, pasma, barva) VALUES
              (?,?,?,?,?,?)'''
-    con.execute(sql,[ime,datum_rojstva,spol,idbarva,idpasma,idosebe])
-    # con.commit()
+    con.execute(sql,[ime,datum_rojstva,spol,idosebe,idbarva,idpasma])
+    con.commit()
 
-def vstavi_zival(ime, datum_rojstva, spol, barva, pasma, lastnik, telefon_lastnika):
+def vstavi_zival(ime, datum_rojstva, spol, barva, pasma, id_lastnika):
     ime = ime.strip()
     if spol == 'samec':
         spol = 'Male'
     else:
         spol = 'Female'
     barva = barva.strip()
-    latnik = lastnik.strip()
-    vstavi_zival_pomozna(ime,datum_rojstva,spol,barva,pasma,lastnik, telefon_lastnika)
+    vstavi_zival_pomozna(ime,datum_rojstva,spol,barva,pasma,id_lastnika)
 
 def dodaj_veterinarja(ime,priimek):
     ''' Funkcija doda veterinarja v tabelo veterinarji. '''
@@ -199,4 +191,19 @@ def zdravilo_spremeni_minZaloga(id_zdravila, novaMinZaloga):
 def zival_spremeni_opombe(id_zivali, opombaNova):
     sql = '''UPDATE zivali SET opombe = ? WHERE zivali.id = ?'''
     con.execute(sql, [opombaNova, id_zdravila])
+    con.commit()
+
+def veterinar_posodobi_naslov(id_veterinar, novNaslov):
+    sql = '''UPDATE veterinarji SET naslov = ? WHERE id = ?'''
+    con.execute(sql, [novNaslov, id_veterinar])
+    con.commit()
+
+def veterinar_posodobi_telefon(id_veterinar, novTelefon):
+    sql = '''UPDATE veterinarji SET telefon = ? WHERE id = ?'''
+    con.execute(sql, [novTelefon, id_veterinar])
+    con.commit()
+    
+def veterinar_posodobi_email(id_veterinar, novEmail):
+    sql = '''UPDATE veterinarji SET email = ? WHERE id = ?'''
+    con.execute(sql, [novEmail, id_veterinar])
     con.commit()
