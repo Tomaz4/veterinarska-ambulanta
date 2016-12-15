@@ -1,9 +1,16 @@
-from bottle import route, run, template
+from bottle import route, run, template,static_file
 import model
+
+
+@route('/views/<filename>')
+def server_static(filename):
+    return static_file(filename, root='views/')
 
 @route('/')
 def domaca_stran():
-    return template('domaca_stran')
+    slika_ime1 = 'Cat_And_Dog.png'
+    slika_ime2 = 'kriz.png'
+    return template('domaca_stran', slika = slika_ime1, slikaKriz = slika_ime2)
 
 @route('/poisci_zival/')
 def poisci_zival():
