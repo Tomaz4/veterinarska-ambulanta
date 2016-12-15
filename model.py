@@ -8,6 +8,8 @@ def barve():
     for barva in con.execute(sql):
         print(barva)
 
+
+
 # cena obiska (torej veterinarske storitve + zdravilo
 def skupna_cena(obisk):
     ''' Funkcija prejme id-obiska in izračuna skupno ceno
