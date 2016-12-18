@@ -12,3 +12,5 @@ Lastniki živali, živali, zdravljenje, zdravila in cene zdravil, veterinarji, .
 - Tomaž Kramer
 - Saša Levstik
 
+
+![alt text](https://github.com/Tomaz4/veterinarska-ambulanta/blob/master/ambulanta.png "ER Diagram")
