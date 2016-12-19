@@ -1,4 +1,4 @@
 *~
 *.pyc
-__pycache__
-Thumbs.db
+/__pycache__/
+/views/Thumbs.db
