@@ -9,7 +9,7 @@ background-attachment:fixed;
 background-position: 80% 80%;
 background-size: 450px 300px;}
 
-#zaviti-robovi {border-radius: 8px;}
+.zaviti-robovi {border-radius: 8px;}
 
 #slikaK {
 	float:right;
@@ -27,9 +27,9 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     background-color: #ff6600;
     max-width: 150px;
+	position:relative;
 }
 
 li {
@@ -46,6 +46,16 @@ li a {
 li a:hover {
     background-color: #ff8533;
 }
+li ul
+     { 
+         display:none; 
+         position:absolute;
+		 left: 150px;
+		 top:45px;
+     }
+
+li:hover ul{
+	display:block;}
 
 hr {background-color: #ff6600;
 	margin: 0; 
@@ -63,9 +73,14 @@ hr {background-color: #ff6600;
 
 <div style = "clear:both">
 <hr size = "25"/>
-<ul id = "zaviti-robovi">
+<ul class = "zaviti-robovi">
   <li><a href="/poisci_zival/">Poišči žival</a></li>
-  <li><a href="/dodaj_zival/">Dodaj žival</a></li>
+  <li><a href="#">Dodaj žival</a>
+	<ul class = "zaviti-robovi">
+		<li><a href = "/dodaj_zival/">Dodaj žival z obstoječim lastnikom</a></li>
+		<li><a href = "/dodaj_zival_in_lastnika/">Dodaj žival in lastnika</a></li>
+	</ul>
+  </li>
   <li><a href="/veterinarji/">Veterinarji</a></li>
   <li><a href="/storitve/">Storitve in zdravila</a></li>
 </ul>

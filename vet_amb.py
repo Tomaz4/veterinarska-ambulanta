@@ -24,6 +24,10 @@ def veterinarji():
 def dodaj_zival():
     return template('dodaj_zival')
 
+@route('/dodaj_zival_in_lastnika/')
+def dodaj_zival_in_lastnika():
+    return template('dodaj_zival_in_lastnika')
+
 @route('/storitve/')
 def storitve():
     return template('storitve')

@@ -209,3 +209,8 @@ def veterinar_posodobi_email(id_veterinar, novEmail):
     sql = '''UPDATE veterinarji SET email = ? WHERE id = ?'''
     con.execute(sql, [novEmail, id_veterinar])
     con.commit()
+
+def izpisi_vsa_imena(imeZivali):
+    sql = '''SELECT * FROM zivali JOIN lastniki ON zivali.id_lastnika = lastniki.id WHERE zivali.ime = ?'''
+    for el in con.execute(sql, [imeZivali]):
+        print(el)
