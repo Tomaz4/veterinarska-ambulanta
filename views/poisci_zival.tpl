@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+<meta charset = 'UTF-8'/>
 <style>
 input[type=text] {
     width: 50%;
@@ -35,18 +36,17 @@ input[type=text]:active {
 </head>
 
 <body>
+
 <center>
-<form action='/poisci_zival/'>
+<form action='/poisci_zival/' method = "POST">
 Vnesi ime živali:
 <br/>
 <input type='text' name = 'ime-zivali'/>
 <br/>
-Vnesi priimek lastnika:
-<br/>
-<input type = 'text' name='priimek-lastnika'/>
-<br/>
 <input type = 'submit'/>
 </form>
 </center>
+
+<p id = "imena"></p>
 </body>
 </html>

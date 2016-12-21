@@ -1,6 +1,5 @@
-from bottle import route, run, template,static_file
+from bottle import route, run, template,static_file, get, post, request
 import model
-
 
 @route('/views/<filename>')
 def server_static(filename):
@@ -15,6 +14,13 @@ def domaca_stran():
 @route('/poisci_zival/')
 def poisci_zival():
     return template('poisci_zival')
+
+@route('/poisci_zival/', method = 'POST')
+def poisci_zival():
+    imeZivali = request.forms.get('ime-zivali')
+    model.izpisi_vsa_imena(imeZivali)
+    return template('poisci_zival')
+
 
 @route('/veterinarji/')
 def veterinarji():
