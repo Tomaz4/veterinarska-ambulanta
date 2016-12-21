@@ -18,8 +18,7 @@ def poisci_zival():
 @route('/poisci_zival/', method = 'POST')
 def poisci_zival():
     imeZivali = request.forms.get('ime-zivali')
-    model.izpisi_vsa_imena(imeZivali)
-    return template('poisci_zival')
+    return model.izpisi_vsa_imena(imeZivali)
 
 
 @route('/veterinarji/')

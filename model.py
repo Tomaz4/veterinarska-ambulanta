@@ -214,8 +214,9 @@ def izpisi_vsa_imena(imeZivali):
     sql = '''SELECT * FROM zivali JOIN lastniki ON zivali.id_lastnika = lastniki.id WHERE zivali.ime = ?'''
     cur = con.execute(sql, [imeZivali])
     rez = cur.fetchone()
+    niz = ""
     if rez == None:
-        print('Živali s tem imenom ni v bazi!')
-        return
+        return('Živali s tem imenom ni v bazi!')
     for el in con.execute(sql, [imeZivali]):
-        print(el)
+        niz+=str(el[1] + " " + el[2]) + "\n"
+    return niz
