@@ -218,5 +218,5 @@ def izpisi_vsa_imena(imeZivali):
     if rez == None:
         return('Živali s tem imenom ni v bazi!')
     for el in con.execute(sql, [imeZivali]):
-        niz+=str(el[1] + " " + el[2]) + "\n"
+        niz+=str(el[1] + " " + el[2] + "\n")
     return niz

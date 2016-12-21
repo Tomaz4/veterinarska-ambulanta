@@ -13,12 +13,12 @@ def domaca_stran():
 
 @route('/poisci_zival/')
 def poisci_zival():
-    return template('poisci_zival')
+    return template('poisci_zival', podatki = "")
 
 @route('/poisci_zival/', method = 'POST')
 def poisci_zival():
     imeZivali = request.forms.get('ime-zivali')
-    return model.izpisi_vsa_imena(imeZivali)
+    return template('poisci_zival', podatki = model.izpisi_vsa_imena(imeZivali))
 
 
 @route('/veterinarji/')

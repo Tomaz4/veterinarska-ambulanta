@@ -47,6 +47,6 @@ Vnesi ime živali:
 </form>
 </center>
 
-<p id = "imena"></p>
+<p id = "imena">{{podatki}}</p>
 </body>
 </html>
