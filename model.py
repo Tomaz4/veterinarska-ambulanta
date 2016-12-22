@@ -220,3 +220,15 @@ def izpisi_vsa_imena(imeZivali):
     for el in con.execute(sql, [imeZivali]):
         niz+=str(el[1] + " " + el[2] + "\n")
     return niz
+
+def vrni_obiske(idZivali):
+    ''' vrne vse obiske dane živali. '''
+    sql = ''' SELECT * FROM obisk where id_zivali = ? '''
+    cur = con.execute(sql, [idZivali])
+    rez = cur.fetchone()
+    if rez == None:
+        raise Exception('Žival še ni opravila nobene storitve.')
+    seznam = []
+    for el in cur:
+        seznam.append(el)
+    return seznam
