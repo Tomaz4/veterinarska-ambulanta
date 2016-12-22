@@ -61,8 +61,13 @@ Ni živali
 %end
 <ul>
 %for zival in podatki:
-<li>{{zival['ime']}} je rojena {{zival['datum_rojstva']}}
-		<a href = "" style = "text-decoration:none">{{dict(zival)}}</a> </li>
+%	if zival['spol'] == 'Female':
+%		spolZ = "samica"
+%	else:
+%		spolZ = "samec"
+<li>
+	<a href = "" style = "text-decoration:none"><b>Ime: </b>{{zival['ime']}}, <b>rojstvo:</b> {{zival['datum_rojstva']}}, <b>spol:</b> {{spolZ}},  <b>priimek:</b> {{zival['priimek']}},  <b>telefon:</b> {{zival['telefon']}} </a> 
+</li>
 %end
 </ul>
 </body>
