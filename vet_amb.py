@@ -20,6 +20,13 @@ def poisci_zival():
     ime_zivali = request.query.ime_zivali
     return template('poisci_zival', podatki = model.izpisi_vsa_imena(ime_zivali))
 
+@route('/poisci_zival/informacije/<id_zivali>')
+def informacije(id_zivali):
+    return template('informacije',podatki = model.vrni_obiske(id_zivali))
+
+@route('/poisci_zival/informacije/<id_zivali>/<id_obiska>')
+def vse_informacije_o_obisku(id_zivali,id_obiska):
+    return template('vse_informacije',podatki = model.vrni_vse_podatke_o_obisku(id_obiska))
 
 @route('/veterinarji/')
 def veterinarji():

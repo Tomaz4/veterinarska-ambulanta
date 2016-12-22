@@ -55,7 +55,7 @@ Vnesi ime živali:
 <button type = 'submit' id = "gumbPoisci"> POIŠČI </button>
 </form>
 </center>
-
+<center>
 %if not podatki:
 Ni živali
 %end
@@ -65,10 +65,12 @@ Ni živali
 %		spolZ = "samica"
 %	else:
 %		spolZ = "samec"
+%   end
 <li>
-	<a href = "" style = "text-decoration:none"><b>Ime: </b>{{zival['ime']}}, <b>rojstvo:</b> {{zival['datum_rojstva']}}, <b>spol:</b> {{spolZ}},  <b>priimek:</b> {{zival['priimek']}},  <b>telefon:</b> {{zival['telefon']}} </a> 
+	<a href = "/poisci_zival/informacije/{{zival['id']}}" style = "text-decoration:none"><b>Ime: </b>{{zival['ime']}}, <b>rojstvo:</b> {{zival['datum_rojstva']}}, <b>spol:</b> {{spolZ}},  <b>priimek:</b> {{zival['priimek']}},  <b>telefon:</b> {{zival['telefon']}} </a> 
 </li>
 %end
 </ul>
+</center>
 </body>
 </html>

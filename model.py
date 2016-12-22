@@ -234,16 +234,17 @@ def izpisi_vsa_imena(imeZivali):
 
 def vrni_obiske(idZivali):
     ''' vrne vse obiske dane živali. '''
-    sql = ''' SELECT * FROM obisk where id_zivali = ? '''
-    cur = con.execute(sql, [idZivali])
-    rez = cur.fetchone()
-    if rez == None:
-        raise Exception('Žival še ni opravila nobene storitve.')
-    seznam = []
-    for el in cur:
-        seznam.append(el)
-    return seznam
+    sql = '''Select obisk.id,obisk.datum, obisk.ura,obisk.teza, obisk.id_zivali, obisk.opombe, obisk.cena from obisk join zivali on obisk.id_zivali = zivali.id where id_zivali = ?'''
+    return list(con.execute(sql,[idZivali]))
 
+def vrni_vse_podatke_o_obisku(idObiska):
+    sql = ''' select * from obisk join obisk_veterinar_storitev on obisk.id = obisk_veterinar_storitev.id_obiska join veterinar_storitev on obisk_veterinar_storitev.id_vet_storitev = veterinar_storitev.id join veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id join storitve on veterinar_storitev.id_storitve = storitve.id where obisk.id = ?'''
+    return list(con.execute(sql,[idObiska]))
+
+
+
+def izpisi_vsa_imena(imeZivali):
+    sql = '''SELECT * FROM zivali JOIN lastniki ON zivali.id_lastnika = lastniki.id WHERE zivali.ime = ?'''
     return list(con.execute(sql, [imeZivali]))
 ##    rez = cur.fetchone()
 ##    niz = ""
