@@ -15,10 +15,10 @@ def domaca_stran():
 def poisci_zival():
     return template('poisci_zival', podatki = "")
 
-@route('/poisci_zival/', method = 'POST')
+@route('/poisci_zival/', method = 'GET')
 def poisci_zival():
-    imeZivali = request.forms.get('ime-zivali')
-    return template('poisci_zival', podatki = model.izpisi_vsa_imena(imeZivali))
+    ime_zivali = request.query.ime_zivali
+    return template('poisci_zival', podatki = model.izpisi_vsa_imena(ime_zivali))
 
 
 @route('/veterinarji/')
