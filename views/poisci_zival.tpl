@@ -14,7 +14,7 @@ input[type=text] {
 	font-size: 18px;
 }
 
-input[type=submit] {
+#gumbPoisci {
     width: 30%;
     background-color: #ff8000;
     color: white;
@@ -23,30 +23,47 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+	font-size = 18px;
+	height:auto;
 }
 
-input[type=submit]:hover {
+#gumbPoisci:hover {
     background-color: #ffa64d;
 }
 
 input[type=text]:active {
     border: 1px solid #663300;
 }
+
+pre {
+	border-style: solid;
+    border-width: 2px 10px 4px 50px;
+	border-color: #999999;	
+	}
+
 </style>
 </head>
 
 <body>
 
 <center>
-<form action='/poisci_zival/' method = "POST">
+<form action='/poisci_zival/' method = "GET">
 Vnesi ime živali:
 <br/>
-<input type='text' name = 'ime-zivali'/>
+<input type='text' name = 'ime_zivali'/>
 <br/>
-<input type = 'submit'/>
+<button type = 'submit' id = "gumbPoisci"> POIŠČI </button>
 </form>
 </center>
 
-<p id = "imena">{{podatki}}</p>
+%if not podatki:
+Ni živali
+%end
+<ul>
+%for zival in podatki:
+<li>{{zival['ime']}} je rojena {{zival['datum_rojstva']}}
+		<a href = "" style = "text-decoration:none">{{dict(zival)}}</a> </li>
+%end
+</ul>
 </body>
 </html>
