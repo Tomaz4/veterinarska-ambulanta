@@ -1,6 +1,7 @@
 import sqlite3
 
 con = sqlite3.connect('Sql/veterinarska_ambulanta.sqlite')
+con.row_factory = sqlite3.Row
 
 # test ali dela
 def barve():
@@ -210,13 +211,31 @@ def veterinar_posodobi_email(id_veterinar, novEmail):
     con.execute(sql, [novEmail, id_veterinar])
     con.commit()
 
+def pridobi_pasmo(id_pasme):
+    sql = '''SELECT pasme FROM pasma WHERE id = ?'''
+    for pasma in con.execute(sql, [id_pasme]):
+        return pasma[0]
+def pridobi_barvo(id_barve):
+    sql = '''SELECT barva FROM barva_zivali WHERE id = ?'''
+    for barva in con.execute(sql, [id_barve]):
+        return barva[0]
+
 def izpisi_vsa_imena(imeZivali):
     sql = '''SELECT * FROM zivali JOIN lastniki ON zivali.id_lastnika = lastniki.id WHERE zivali.ime = ?'''
-    cur = con.execute(sql, [imeZivali])
-    rez = cur.fetchone()
-    niz = ""
-    if rez == None:
-        return('Živali s tem imenom ni v bazi!')
-    for el in con.execute(sql, [imeZivali]):
-        niz+=str(el[1] + " " + el[2] + "\n")
-    return niz
+    return list(con.execute(sql, [imeZivali]))
+##    rez = cur.fetchone()
+##    niz = ""
+##    if imeZivali!="":
+##        if rez == None:
+##            return []
+##        seznamVsehImen = []
+##        for el in con.execute(sql, [imeZivali]):
+##            imeZiv = el[1]
+##            datum_roj = el[2]
+##            if el[5] == "Female":
+##                spol = "samica"
+##            else:
+##                spol = "samec"
+##            seznamVsehImen.append(str(imeZiv + " " + datum_roj + " " + spol + " " + pridobi_pasmo(el[7]) + " " + pridobi_barvo(el[8])+ " " + el[10] + " " + el[11] + " " + str(el[14]) + "\n"))
+##        return seznamVsehImen
+
