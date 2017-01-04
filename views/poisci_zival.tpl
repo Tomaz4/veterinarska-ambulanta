@@ -99,7 +99,7 @@ Vnesi ime živali:
 	<td>{{spolZ}}</td>
 	<td>{{zival['priimek']}}</td>
 	<td>{{zival['telefon']}}</td>
-	<td><a href = "/poisci_zival/informacije/{{zival['id']}}" style = "text-decoration:none">obišči</a> </td> 
+	<td><a href = "/poisci_zival/informacije/{{zival['id']}}" style = "text-decoration:none">Obišči</a> </td> 
 </tr>
 %end
 </table>

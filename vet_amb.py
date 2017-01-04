@@ -30,7 +30,13 @@ def vse_informacije_o_obisku(id_zivali,id_obiska):
 
 @route('/veterinarji/')
 def veterinarji():
-    return template('veterinarji')
+    slika_ime1 = 'Cat_And_Dog.png'
+    slika_ime2 = 'kriz.png'
+    return template('veterinarji', slika = slika_ime1, slikaKriz = slika_ime2, vet = model.vrni_vse_veterinarje())
+
+@route('/veterinarji/<id_vet>')
+def veterinar_storitve(id_vet):
+    return template('vet_storitve', storitve = vrni_veterinar_storitev(id_vet))
 
 @route('/dodaj_zival/')
 def dodaj_zival():
