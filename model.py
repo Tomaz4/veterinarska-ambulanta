@@ -262,4 +262,27 @@ def izpisi_vsa_imena(imeZivali):
 ##            seznamVsehImen.append(str(imeZiv + " " + datum_roj + " " + spol + " " + pridobi_pasmo(el[7]) + " " + pridobi_barvo(el[8])+ " " + el[10] + " " + el[11] + " " + str(el[14]) + "\n"))
 ##        return seznamVsehImen
 
+def vrni_vse_veterinarje():
+    sql = ''' select * from veterinarji'''
+    return list(con.execute(sql))
 
+def vrni_veterinar_storitev(idVeterinarja):
+    sql = '''select storitve.ime from veterinar_storitev join storitve on veterinar_storitev.id_storitve = storitve.id where id_veterinarja = ?'''
+    return list(con.execute(sql,[idVeterinarja]))
+
+def vrni_storitve():
+    sql = ''' select * from storitve'''
+    return list(con.execute(sql))
+
+def vrni_zdravila():
+    sql = '''select * from zdravila'''
+    return list(con.execute(sql))
+
+def dodaj_zdravilo(recept,cena,trenutna_zaloga,ime,minimalna_zaloga):
+    sql = '''INSERT INTO zdravila (recept,cena,trenutna_zaloga,ime,minimalna_zaloga) VALUES (?,?,?,?,?)'''
+    con.execute(sql,[recept,cena,trenutna_zaloga,ime,minimalna_zaloga])
+    con.commit()
+    
+def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov):
+    sql = '''INSERT INTO veterinarji (ime,priimek,telefon,email,datum_rojstva,naslov) VALUES (?,?,?,?,?,?)'''
+    con.execute(sql,[ime,priimek,telefon,email,datum_rojstva,naslov])
