@@ -1,31 +1,4 @@
-<!doctype html>
-<html>
-<head>
-<style>
-#okvir_tabela{display: inline-block;
-				position: relative;
-				top:100px;}
-
-th, td {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 20px;
-}	
-
-
-table {
-	border-collapse:collapse;
-}	
-
-th {background-color:#ff8000;
-	color:white;}			
-
-tr:nth-child(even){background-color: #f2f2f2}
-
-</style>
-</head>
-<body>
-
+% rebase('base.tpl', title='Page Title')
 <table id = "tabela">
 <tr>
 	<th><b>IME</b></th>
@@ -49,6 +22,6 @@ tr:nth-child(even){background-color: #f2f2f2}
 </tr>
 %end
 </table>
-
+</div>
 </body>
 </html>

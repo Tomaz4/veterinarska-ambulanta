@@ -1,4 +1,4 @@
-from bottle import route, run, template,static_file, get, post, request
+from bottle import route, run, template,static_file, get, post, request, redirect
 import model
 
 @route('/views/<filename>')
@@ -7,9 +7,10 @@ def server_static(filename):
 
 @route('/')
 def domaca_stran():
-    slika_ime1 = 'Cat_And_Dog.png'
-    slika_ime2 = 'kriz.png'
-    return template('domaca_stran', slika = slika_ime1, slikaKriz = slika_ime2)
+##    slika_ime1 = 'Cat_And_Dog.png'
+##    slika_ime2 = 'kriz.png'
+    #slika = slika_ime1, slikaKriz = slika_ime2
+    return template('domaca_stran')
 
 @route('/poisci_zival/')
 def poisci_zival():
@@ -30,9 +31,7 @@ def vse_informacije_o_obisku(id_zivali,id_obiska):
 
 @route('/veterinarji/')
 def veterinarji():
-    slika_ime1 = 'Cat_And_Dog.png'
-    slika_ime2 = 'kriz.png'
-    return template('veterinarji', slika = slika_ime1, slikaKriz = slika_ime2, vet = model.vrni_vse_veterinarje())
+    return template('veterinarji', vet = model.vrni_vse_veterinarje())
 
 @route('/veterinarji/<id_vet>')
 def veterinar_storitve(id_vet):
@@ -48,6 +47,22 @@ def dodaj_zival_in_lastnika():
 
 @route('/storitve/')
 def storitve():
-    return template('storitve')
+    return template('storitve', storitve = model.vrni_storitve())
 
+
+@route('/storitve/storitev_uredi/<id_stor>/', method = 'GET')
+def storitev_uredi(id_stor):
+    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje())
+
+@route('/storitve/storitev_uredi/<id_stor>/', method = 'POST')
+def storitev_uredi_post(id_stor):
+    ime_stor = request.forms.ime_storitve
+    cena_stor = request.forms.cena_storitve
+    model.posodobi_storitev(id_stor,cena_stor,ime_stor)
+    sez = request.forms.getall('vet')
+    sez_int = []
+    for el in sez:
+        sez_int.append(int(el))
+    model.dodaj_vet_stor(id_stor,sez_int)
+    redirect('/')
 run(debug = True)

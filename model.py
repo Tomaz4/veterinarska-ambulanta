@@ -109,7 +109,7 @@ def vstavi_pasmo(pasmaZ):
     con.commit()
 
 def posodobi_pasmo(id_pasme,nova_pasma):
-    ''' Funkcija posodobi pasmo (èe se nekdo zmoti pri tipkanju
+    ''' Funkcija posodobi pasmo (če se nekdo zmoti pri tipkanju
         in to želi popraviti. '''
     sql = ''' UPDATE pasma SET pasme = ? where id = ? '''
     con.execute(sql,[nova_pasma,id_pasme])
@@ -143,6 +143,8 @@ def popravi_storitev_cena(id_storitve,nova_cena):
     sql = ''' UPDATE storitve SET cena = ? where id = ? '''
     con.execute(sql,[nova_cena,id_storitve])
     con.commit()
+
+
 
 def vstavi_barvo(barvaPodaj):
     sql = ''' INSERT INTO barva_zivali (barva) VALUES (?)'''
@@ -267,7 +269,7 @@ def vrni_veterinar_storitev(idVeterinarja):
 
 def vrni_storitve():
     sql = ''' select * from storitve'''
-    return list(con.execute(sql))
+    return sorted(list(con.execute(sql)), key=lambda x: x[2])
 
 def vrni_zdravila():
     sql = '''select * from zdravila'''
@@ -281,3 +283,18 @@ def dodaj_zdravilo(recept,cena,trenutna_zaloga,ime,minimalna_zaloga):
 def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov):
     sql = '''INSERT INTO veterinarji (ime,priimek,telefon,email,datum_rojstva,naslov) VALUES (?,?,?,?,?,?)'''
     con.execute(sql,[ime,priimek,telefon,email,datum_rojstva,naslov])
+
+def vrni_doloceno_storitev(idS):
+    sql = '''select * from storitve where id = ?'''
+    return list(con.execute(sql,[idS]))
+
+def posodobi_storitev(idS,novaCena,novoIme):
+    sql = '''update storitve set cena = ?, ime = ? where id = ?'''
+    con.execute(sql,[novaCena, novoIme,idS])
+    con.commit()
+
+def dodaj_vet_stor(id_stor,id_veterinarjev):
+    sql = '''insert into veterinar_storitev (id_veterinarja,id_storitve) values (?,?)'''
+    for vet in id_veterinarjev:
+        con.execute(sql,[vet,id_stor])
+    con.commit()
