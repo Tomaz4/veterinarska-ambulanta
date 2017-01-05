@@ -21,9 +21,28 @@ def poisci_zival():
     ime_zivali = request.query.ime_zivali
     return template('poisci_zival', podatki = model.izpisi_vsa_imena(ime_zivali))
 
-@route('/poisci_zival/informacije/<id_zivali>')
+@route('/poisci_zival/informacije/<id_zivali>', method = "GET")
 def informacije(id_zivali):
     return template('informacije',podatki = model.vrni_obiske(id_zivali))
+@route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
+def dodaj_obisk(id_zivali):
+    return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje())
+@route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/', method = "POST")
+def dokoncaj_racun(id_zivali):
+    datum = request.forms.datum
+    ura = request.forms.ura
+    trajanje = request.forms.trajanje
+    ambulanta = request.forms.ambulanta
+    opombe = request.forms.opombe
+    seznam_zdravil = request.forms.getall('zdravila')
+    veterinar_id = request.forms.vet
+    print(datum)
+    print(ura)
+    print(trajanje)
+    print(ambulanta)
+    print(opombe)
+    print(seznam_zdravil)
+    print(veterinar_id)
 
 @route('/poisci_zival/informacije/<id_zivali>/<id_obiska>')
 def vse_informacije_o_obisku(id_zivali,id_obiska):

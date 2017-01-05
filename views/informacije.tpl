@@ -28,6 +28,11 @@ content: "\f0a4";
 </a>
 </li>
 %end
+
 </ul>
+<form action = "/poisci_zival/informacije/{{el['id_zivali']}}/dodaj_obisk/" method = "GET"> 
+<button type = "submit">Dodaj obisk</button>
+</form>
+ 
 </body>
 </html>

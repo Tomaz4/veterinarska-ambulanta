@@ -298,3 +298,4 @@ def dodaj_vet_stor(id_stor,id_veterinarjev):
     for vet in id_veterinarjev:
         con.execute(sql,[vet,id_stor])
     con.commit()
+
