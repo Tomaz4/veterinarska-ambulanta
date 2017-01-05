@@ -21,6 +21,7 @@ content: "\f0a4";
 </head>
 
 <body>
+
 <ul>
 %for el in podatki:
 <li>
@@ -28,9 +29,9 @@ content: "\f0a4";
 </a>
 </li>
 %end
-
+lllll
 </ul>
-<form action = "/poisci_zival/informacije/{{el['id_zivali']}}/dodaj_obisk/" method = "GET"> 
+<form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/" method = "GET"> 
 <button type = "submit">Dodaj obisk</button>
 </form>
  

@@ -23,7 +23,7 @@ def poisci_zival():
 
 @route('/poisci_zival/informacije/<id_zivali>', method = "GET")
 def informacije(id_zivali):
-    return template('informacije',podatki = model.vrni_obiske(id_zivali))
+    return template('informacije',zival = id_zivali, podatki = model.vrni_obiske(id_zivali))
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
 def dodaj_obisk(id_zivali):
     return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje())
