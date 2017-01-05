@@ -32,12 +32,7 @@ def skupna_cena(obisk):
         seznam.append(cena[0])
     return sum(seznam)
 
-# vstavljanje živali:
-##def vstavi_zival(ime, datum_rojstva, spol, barva, pasma, lastnik):
-##    ''' Funkcija prejme ime živali, datum rojstva, spol kot Male oziroma
-##        Female, barvo, pasmo ter lastnika, ki je že v bazi podatkov. '''
-##    sql_id_lastnika = '''SELECT id FROM lastniki WHERE ime = ? and priimek = ?'''
-##    pass
+
     
 def vstavi_zival_pomozna(ime, datum_rojstva, spol, barva, pasma, idosebe):
     ''' Funkcija prejme ime živali, datum rojstva, spol kot Male oziroma
