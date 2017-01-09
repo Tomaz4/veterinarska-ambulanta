@@ -27,22 +27,54 @@ def informacije(id_zivali):
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
 def dodaj_obisk(id_zivali):
     return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje())
-@route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/', method = "POST")
+
+
+@route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/', method = "GET")
 def dokoncaj_racun(id_zivali):
+    datum1 = request.query.datum
+    ura1 = request.query.ura
+    trajanje1 = request.query.trajanje
+    ambulanta1 = request.query.ambulanta
+    opombe1 = request.query.opombe
+    teza1 = request.query.teza
+    seznam_zdravil1 = request.query.getall('zdravila_form')
+    veterinar_id1 = int(request.query.vet)
+    return template('racun.tpl',datum = datum1, teza = teza1, ura = ura1, trajanje = trajanje1,
+                    ambulanta = ambulanta1, opombe = opombe1, seznam_zdravil = seznam_zdravil1,
+                    sezImenaZdravil = model.vrni_imena_zdravil(seznam_zdravil1),
+                    veterinar_id = veterinar_id1, vet_ime = model.vrni_veterinarja_ime(veterinar_id1),
+                    id_zivali = id_zivali,seznam_storitev = model.vrni_vet_storitev_vse(veterinar_id1))
+
+
+
+
+
+@route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/dokoncaj_racun/', method = "POST")
+def dokoncaj_racun_post(id_zivali):
+    print(dict(request.forms))
+    sezKolicinZdravil = request.forms.getall('okenca')
+    seznamStoritev = request.forms.getall('storitve')
     datum = request.forms.datum
     ura = request.forms.ura
     trajanje = request.forms.trajanje
     ambulanta = request.forms.ambulanta
     opombe = request.forms.opombe
-    seznam_zdravil = request.forms.getall('zdravila')
-    veterinar_id = request.forms.vet
-    print(datum)
-    print(ura)
-    print(trajanje)
-    print(ambulanta)
-    print(opombe)
-    print(seznam_zdravil)
-    print(veterinar_id)
+    teza = request.forms.teza
+    veterinar_id = int(request.forms.veterinar)
+    seznam_zdravil_id = request.forms.getall('sez_zdravil_id')
+    for el in seznam_zdravil_id:
+        print(repr(el))
+#    try:
+    model.zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali)
+#    except:
+#        return template('racun.tpl',datum = datum, teza = teza, ura = ura, trajanje = trajanje, ambulanta = ambulanta, opombe = opombe, seznam_zdravil = seznam_zdravil, sezImenaZdravil = model.vrni_imena_zdravil(seznam_zdravil),
+#                        veterinar_id = veterinar_id, vet_ime = model.vrni_veterinarja_ime(veterinar_id), id_zival = id_zivali,seznam_storitev = model.vrni_vet_storitev_vse(veterinar_id))
+        
+
+            
+        
+        
+    
 
 @route('/poisci_zival/informacije/<id_zivali>/<id_obiska>')
 def vse_informacije_o_obisku(id_zivali,id_obiska):

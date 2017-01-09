@@ -299,3 +299,82 @@ def dodaj_vet_stor(id_stor,id_veterinarjev):
         con.execute(sql,[vet,id_stor])
     con.commit()
 
+def vrni_veterinarja_ime(idVet):
+    sql = ''' select ime, priimek from veterinarji where id = ? '''
+    x = con.execute(sql,[idVet]).fetchone()
+    print(x)
+    return x
+
+def vrni_imena_zdravil(sezZdravil):
+    sezImena = []
+    sql = ''' select ime from zdravila where id = ?'''
+    for el in sezZdravil:
+        el = int(el)
+        sezImena.append(list(con.execute(sql,[el])))
+    print(sezImena)
+    return sezImena
+
+def pridobi_podatke_zdravilo(id_zdr):
+    sql = ''' select trenutna_zaloga,minimalna_zaloga,cena from zdravila where id = ? '''
+    return list(con.execute(sql,[id_zdr]).fetchone())
+
+def posodobi_kolicino(id_zdr,koliko):
+    sql = ''' update zdravila set trenutna_zaloga = ? where id = ?'''
+    con.execute(sql,[koliko,id_zdr])
+    con.commit()
+
+def pridobi_podatke_storitev(idStor):
+    sql = '''select cena,ime from storitve where id = ?'''
+    return list(con.execute(sql,[idStor]).fetchone())
+
+def zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali):
+    cena = 0
+    for i in range(len(seznam_zdravil_id)):
+        element = int(seznam_zdravil_id[i])
+        zdravilo_podatki = pridobi_podatke_zdravilo(element)
+        trenutna_zaloga = zdravilo_podatki[0]
+        cena_izd = zdravilo_podatki[2]
+        zeljena_kolicina = int(sezKolicinZdravil[i])
+        if zeljena_kolicina <= trenutna_zaloga:
+            cena += zeljena_kolicina*cena_izd
+            nova_kolicina = trenutna_zaloga - zeljena_kolicina
+            posodobi_kolicino(element, nova_kolicina)
+        else:
+            raise Exception("premalo izdelka imaš na zalogi")
+    for stor in seznamStoritev:
+        stor = int(stor)
+        podatki_storitve = pridobi_podatke_storitev(stor)
+        cena_stor = podatki_storitve[0]
+        cena += cena_stor
+    id_obiska = ustvari_obisk(datum,ura,trajanje,ambulanta,opombe,cena,teza,id_zivali)
+    ustvari_vet_storitev_obisk(id_obiska,int(veterinar_id), seznamStoritev)
+    ustvari_obisk_zdravilo(id_obiska,seznam_zdravil_id)
+    con.commit()
+
+def ustvari_obisk(datum,ura,trajanje,ambulanta,opombe,cena,teza,id_zivali):
+    sql = '''insert into obisk (cena,datum,teza,ambulanta,trajanje,id_zivali,opombe,ura) values (?,?,?,?,?,?,?,?)'''
+    cursor = con.cursor()
+    cursor.execute(sql,[cena,datum,teza,ambulanta,trajanje,id_zivali,opombe,ura])
+    return cursor.lastrowid
+
+def ustvari_vet_storitev_obisk(id_obiska,id_veterinarja, seznam_storitev_id):
+    sql = '''insert into obisk_veterinar_storitev (id_obiska,id_vet_storitev) values (?,?)'''
+    for el in seznam_storitev_id:
+        el = int(el)
+        id_vet_stor = int(vrni_id_vet_stor(el,id_veterinarja)[0])
+        con.execute(sql,[id_obiska,id_vet_stor])
+
+def ustvari_obisk_zdravilo(id_obiska,seznam_zdravil_id):
+    sql = ''' insert into zdravilo_obisk (id_obiska,id_zdravila) values (?,?)'''
+    for el in seznam_zdravil_id:
+        el = int(el)
+        con.execute(sql,[id_obiska,el])
+
+def vrni_id_vet_stor(id_stor,id_vet):
+    sql = '''select id from veterinar_storitev where id_veterinarja = ? and id_storitve = ?'''
+    return list(con.execute(sql,[id_vet,id_stor]).fetchone())
+
+def vrni_vet_storitev_vse(id_vet):
+    sql = '''select storitve.id,storitve.ime,storitve.cena from veterinar_storitev join storitve on veterinar_storitev.id_storitve = storitve.id where id_veterinarja = ?'''
+    return list(con.execute(sql,[id_vet]))      
+    

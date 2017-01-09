@@ -5,7 +5,7 @@
 </head>
 
 <body>
-<form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/racun/" method = "POST">
+<form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/racun/" method = "GET">
 
 Datum: <input type = "text" name = "datum"/>
 Ura: <input type = "text" name = "ura"/>
@@ -13,13 +13,13 @@ Teža: <input type = "text" name = "teza"/>
 Ambulanta: <input type = "text" name = "ambulanta"/>
 Trajanje: <input type = "text" name = "trajanje"/>
 Opombe: <input type = "text" name = "opombe"/>
-<select name="zdravila" multiple>
+<select name="zdravila_form" multiple>
 %for zdr in zdravila:
 %    id_zdr = zdr['id']
 %    ime_zdr = zdr['ime']
 <option value="{{id_zdr}}">{{ime_zdr}}</option>
 %end
-s
+
 </select>
 
 <select name="vet">
