@@ -1,4 +1,7 @@
 % rebase('base.tpl', title='Page Title')
+<form action = '/storitve/dodaj_storitev/'>
+<button type = "submit">DODAJ STORITEV</button>
+</form>
 <table>
 <tr>
 <th>IME</th>

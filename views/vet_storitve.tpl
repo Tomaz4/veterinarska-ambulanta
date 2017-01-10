@@ -2,11 +2,12 @@
 <html>
 <body>
 <ul>
-<li>
 %for storitev in storitve:
-	
+<li>
+{{storitev['ime']}}<br/>
+{{storitev['cena']}}
+</li>	
 %end
-</li>
 </ul>
 </body>
 </html>

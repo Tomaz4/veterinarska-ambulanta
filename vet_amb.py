@@ -78,15 +78,45 @@ def dokoncaj_racun_post(id_zivali):
 
 @route('/poisci_zival/informacije/<id_zivali>/<id_obiska>')
 def vse_informacije_o_obisku(id_zivali,id_obiska):
-    return template('vse_informacije',podatki = model.vrni_vse_podatke_o_obisku(id_obiska))
+    return template('vse_informacije',podatki= model.vrni_vse_podatke_o_obisku(id_obiska))
 
 @route('/veterinarji/')
 def veterinarji():
     return template('veterinarji', vet = model.vrni_vse_veterinarje())
 
+@route('/veterinarji/uredi_vet/<id_vet>/', method = 'GET')
+def uredi_vet(id_vet):
+    return template('uredi_vet', podatek = model.pridobi_vse_vet_podatke(id_vet))
+
+@route('/veterinarji/uredi_vet/<id_vet>/', method = 'POST')
+def uredi_vet_post(id_vet):
+    ime = request.forms.ime
+    priimek = request.forms.priimek
+    telefon = request.forms.telefon
+    email = request.forms.email
+    datum_rojstva = request.forms.datum_rojstva
+    naslov = request.forms.naslov
+    model.uredi_vet(ime, priimek, telefon,email, datum_rojstva, naslov, id_vet)
+    redirect('/')
+
 @route('/veterinarji/<id_vet>')
 def veterinar_storitve(id_vet):
-    return template('vet_storitve', storitve = vrni_veterinar_storitev(id_vet))
+    return template('vet_storitve', storitve = model.vrni_vet_storitev_vse(id_vet))
+
+@route('/veterinarji/dodaj_vet/')
+def dodaj_vet():
+    return template('dodaj_vet')
+
+@route('/veterinarji/dodaj_vet/', method= 'POST')
+def dodaj_vet_post():
+    ime = request.forms.ime
+    priimek = request.forms.priimek
+    telefon = request.forms.telefon
+    email = request.forms.email
+    datum_rojstva = request.forms.datum_rojstva
+    naslov = request.forms.naslov
+    model.dodaj_veterinarja(ime, priimek, telefon,email, datum_rojstva, naslov)
+    redirect('/')
 
 @route('/dodaj_zival/')
 def dodaj_zival():
@@ -99,6 +129,16 @@ def dodaj_zival_in_lastnika():
 @route('/storitve/')
 def storitve():
     return template('storitve', storitve = model.vrni_storitve())
+
+@route('/storitve/dodaj_storitev/', method = 'GET')
+def dodaj_storitev():
+    return template('dodaj_storitev')
+@route('/storitve/dodaj_storitev/', method = 'POST')
+def dodaj_storitev_post():
+    cena_stor = request.forms.cena_stor
+    ime_stor = request.forms.ime_stor
+    model.vstavi_novo_storitev(cena_stor,ime_stor)
+    redirect('/')
 
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'GET')
@@ -117,3 +157,4 @@ def storitev_uredi_post(id_stor):
     model.dodaj_vet_stor(id_stor,sez_int)
     redirect('/')
 run(debug = True)
+

@@ -376,5 +376,19 @@ def vrni_id_vet_stor(id_stor,id_vet):
 
 def vrni_vet_storitev_vse(id_vet):
     sql = '''select storitve.id,storitve.ime,storitve.cena from veterinar_storitev join storitve on veterinar_storitev.id_storitve = storitve.id where id_veterinarja = ?'''
-    return list(con.execute(sql,[id_vet]))      
+    return list(con.execute(sql,[id_vet]))
+
+
+def vstavi_novo_storitev(cena,ime):
+    sql = ''' insert into storitve (cena, ime) values (?,?)'''
+    con.execute(sql,[cena,ime])
+    con.commit()
+
+def pridobi_vse_vet_podatke(id_vet):
+    sql = '''select * from veterinarji where id = ?'''
+    return list(con.execute(sql, [id_vet]))
     
+def uredi_vet(ime, priimek, telefon, email, datum_roj, naslov, id_vet):
+    sql = '''update veterinarji set ime = ?, priimek = ?, telefon = ?,email = ?, datum_rojstva = ?, naslov = ? where id = ?'''
+    con.execute(sql,[ime, priimek, telefon, email, datum_roj, naslov, id_vet])
+    con.commit()

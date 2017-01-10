@@ -1,4 +1,8 @@
 % rebase('base.tpl', title='Page Title')
+<form action = '/veterinarji/dodaj_vet/'>
+<button type = "submit">DODAJ VETERINARJA</button>
+</form>
+
 <table id = "tabela">
 <tr>
 	<th><b>IME</b></th>
@@ -19,6 +23,7 @@
 	<td>{{veterinar['datum_rojstva']}}</td>
 	<td>{{veterinar['naslov']}}</td>
 	<td><a href = "/veterinarji/{{veterinar['id']}}">Poglej storitve</a></td>
+	<td><a href = "/veterinarji/uredi_vet/{{veterinar['id']}}/">Uredi</a></td>
 </tr>
 %end
 </table>
