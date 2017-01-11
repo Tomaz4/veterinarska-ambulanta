@@ -27,7 +27,7 @@ def informacije(id_zivali):
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
 def dodaj_obisk(id_zivali):
     return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje())
-
+    
 
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/', method = "GET")
 def dokoncaj_racun(id_zivali):
@@ -128,7 +128,38 @@ def dodaj_zival_in_lastnika():
 
 @route('/storitve/')
 def storitve():
-    return template('storitve', storitve = model.vrni_storitve())
+    return template('storitve', storitve = model.vrni_storitve(), zdravila = model.vrni_zdravila())
+
+@route('/storitve/zdravilo_uredi/<id_zdr>/',method = 'GET')
+def zdravilo_uredi(id_zdr):
+    return template('zdravilo_uredi', podatki = model.vrni_doloceno_zdravilo(id_zdr))
+
+@route('/storitve/zdravilo_uredi/<id_zdr>/',method = 'POST')
+def zdravilo_uredi_post(id_zdr):
+    ime = request.forms.ime
+    cena = request.forms.cena
+    trenutna_zaloga = request.forms.trenutna_zaloga
+    minimalna_zaloga = request.forms.minimalna_zaloga
+    model.posodobi_zdravilo(ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr)
+    redirect('/')
+
+@route('/storitve/dodaj_zdravilo/', method = 'GET')
+def dodaj_zdravilo(napaka = False):
+    return template('dodaj_zdravilo', napaka = napaka)
+@route('/storitve/dodaj_zdravilo/', method = 'POST')
+def dodaj_zdravilo_post():
+    ime = request.forms.ime_zdr
+    cena = request.forms.cena_zdr
+    min_zaloga = request.forms.minimalna_zaloga
+    recept = request.forms.recept
+    trenutna_zaloga = request.forms.trenutna_zaloga
+    try:
+        model.dodaj_zdravilo(ime,cena,min_zaloga,recept,trenutna_zaloga)
+    except Exception as e:
+        print(e)
+        #redirect('/storitve/dodaj_zdravilo/')
+        ##kaj tuki nardit????
+    redirect('/')
 
 @route('/storitve/dodaj_storitev/', method = 'GET')
 def dodaj_storitev():
@@ -143,7 +174,7 @@ def dodaj_storitev_post():
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'GET')
 def storitev_uredi(id_stor):
-    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje())
+    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje(id_stor))
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'POST')
 def storitev_uredi_post(id_stor):

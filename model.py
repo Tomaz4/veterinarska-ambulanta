@@ -259,9 +259,10 @@ def izpisi_vsa_imena(imeZivali):
 ##            seznamVsehImen.append(str(imeZiv + " " + datum_roj + " " + spol + " " + pridobi_pasmo(el[7]) + " " + pridobi_barvo(el[8])+ " " + el[10] + " " + el[11] + " " + str(el[14]) + "\n"))
 ##        return seznamVsehImen
 
-def vrni_vse_veterinarje():
-    sql = ''' select * from veterinarji'''
-    return list(con.execute(sql))
+def vrni_vse_veterinarje(id_stor):
+    sql = ''' select * from veterinarji where id not in (select veterinar_storitev.id_veterinarja from veterinar_storitev join veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id where veterinar_storitev.id_storitve = ?) and zaposlen = 'DA' '''
+    
+    return list(con.execute(sql,[id_stor]))
 
 def vrni_veterinar_storitev(idVeterinarja):
     sql = '''select storitve.ime from veterinar_storitev join storitve on veterinar_storitev.id_storitve = storitve.id where id_veterinarja = ?'''
@@ -391,4 +392,48 @@ def pridobi_vse_vet_podatke(id_vet):
 def uredi_vet(ime, priimek, telefon, email, datum_roj, naslov, id_vet):
     sql = '''update veterinarji set ime = ?, priimek = ?, telefon = ?,email = ?, datum_rojstva = ?, naslov = ? where id = ?'''
     con.execute(sql,[ime, priimek, telefon, email, datum_roj, naslov, id_vet])
+    con.commit()
+
+def vrni_zdravila():
+    sql = ''' select * from zdravila'''
+    return list(con.execute(sql))
+
+def vrni_doloceno_zdravilo(id_zdr):
+    sql = '''select * from zdravila where id = ?'''
+    return list(con.execute(sql,[id_zdr]))
+
+def posodobi_zdravilo(ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr):
+    sql = '''update zdravila set ime = ?, cena = ?, trenutna_zaloga = ?, minimalna_zaloga = ? where id = ?'''
+    con.execute(sql,[ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr])
+    con.commit()
+
+def dodaj_zdravilo(ime,cena,min_zaloga,recept,trenutna_zaloga):
+    sql = '''insert into zdravila (ime,cena,minimalna_zaloga,recept,trenutna_zaloga) values (?,?,?,?,?)'''
+    if recept == 'DA':
+        rec = 1
+    else:
+        rec = 0
+    if min_zaloga == '':
+        min_zaloga = 0
+    else:
+        try:
+            min_zaloga = int(min_zaloga)
+        except:
+            raise Exception("preveri vnos1!")
+    if trenutna_zaloga == '':
+        trenutna_zaloga = 0
+    else:
+        try:
+            trenutna_zaloga = int(trenutna_zaloga)
+        except:
+            raise Exception("preveri vnos2!")
+    if cena == '':
+        cena = 0
+    else:
+        try:
+            cena = int(cena)
+        except:
+            raise Exception('preveri vnos3!')
+    
+    con.execute(sql,[ime,cena,min_zaloga,rec,trenutna_zaloga])
     con.commit()

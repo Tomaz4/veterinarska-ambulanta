@@ -22,7 +22,13 @@
 	<td>{{veterinar['email']}}</td>
 	<td>{{veterinar['datum_rojstva']}}</td>
 	<td>{{veterinar['naslov']}}</td>
-	<td><a href = "/veterinarji/{{veterinar['id']}}">Poglej storitve</a></td>
+	<td>
+%   if veterinar['zaposlen'] == 'DA':	
+	<a href = "/veterinarji/{{veterinar['id']}}">Poglej storitve</a>
+%   else:
+    ni zaposlen
+%   end
+	</td>
 	<td><a href = "/veterinarji/uredi_vet/{{veterinar['id']}}/">Uredi</a></td>
 </tr>
 %end

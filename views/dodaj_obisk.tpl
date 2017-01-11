@@ -24,11 +24,13 @@ Opombe: <input type = "text" name = "opombe"/>
 
 <select name="vet">
 %for veter in veterinarji:
-%	id_veter = veter['id']
-%	ime_veter = veter['ime']
-%	priimek_veter = veter['priimek']
-%	telefon_veter = veter['telefon']
+%   if veter['zaposlen'] == 'DA':
+%		id_veter = veter['id']
+%		ime_veter = veter['ime']
+%		priimek_veter = veter['priimek']
+%		telefon_veter = veter['telefon']
 <option value="{{id_veter}}">{{ime_veter}} {{priimek_veter}} {{telefon_veter}}</option>
+%   end
 %end
 </select>
 <button type = "submit">Naprej</button>

@@ -19,3 +19,36 @@
 </tr>
 %end
 </table>
+<form action = '/storitve/dodaj_zdravilo/'>
+<button type = "submit"> DODAJ ZDRAVILO</button>
+</form>
+<table>
+<tr>
+<th>IME</th>
+<th>CENA>/th>
+<th>RECEPT</th>
+<th>TRENUTNA ZALOGA</th>
+<th>ALI JE DOVOLJ ZALOGE?</th>
+<th>UREDI PODATKE</th>
+</tr>
+<tr>
+%for zdravilo in zdravila:
+<td>{{zdravilo['ime']}}</td>
+<td>{{zdravilo['cena']}}</td>
+%if int(zdravilo['recept']) == 0:
+%	recept = 'NE'
+%else:
+%	recept = 'DA'
+%end
+<td>{{recept}}</td>
+<td>{{zdravilo['trenutna_zaloga']}}</td>
+%if int(zdravilo['trenutna_zaloga'])>= int(zdravilo['minimalna_zaloga']):
+%	dovolj = 'DA'
+%else:
+%	dovolj = 'NE, dokupi vsaj'+ str(int(zdravilo['minimalna_zaloga']) - int(zdravilo['trenutna_zaloga'])) + ' enot'
+%end
+<td>{{dovolj}}</td>
+<td><a href = '/storitve/zdravilo_uredi/{{zdravilo['id']}}/'>uredi</a></td>
+</tr>
+%end
+</table>
