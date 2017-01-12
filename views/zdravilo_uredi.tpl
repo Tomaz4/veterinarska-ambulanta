@@ -1,8 +1,4 @@
-<!doctype html>
-<html>
-<head>
-</head>
-<body>
+% rebase('base.tpl', title='Page Title')
 % podatki = podatki[0]
 <form action = '/storitve/zdravilo_uredi/{{podatki['id']}}/' method = 'POST'>
 Ime zdravila: <input type = 'text' name = 'ime' value = {{podatki['ime']}}> <br/>
@@ -11,6 +7,3 @@ trenutna zaloga: <input type = 'text' name = 'trenutna_zaloga' value = {{podatki
 minimalna zaloga: <input type = 'text' name = 'minimalna_zaloga' value = {{podatki['minimalna_zaloga']}}> <br/>
 <button type = 'submit'>POTRDI</button>
 </form>
-
-</body>
-</html>

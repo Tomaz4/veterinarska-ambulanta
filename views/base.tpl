@@ -3,7 +3,11 @@
 <head>
 <style>
 .zaviti-robovi {border-radius: 8px;}
-
+.pozicija {
+	position:relative;
+	left:150px;
+	bottom:100px;
+}
 #slikaK {
 	float:right;
 }
@@ -94,7 +98,9 @@ tr:nth-child(even){background-color: #f2f2f2}
   <li><a href="/veterinarji/">Veterinarji</a></li>
   <li><a href="/storitve/">Storitve in zdravila</a></li>
 </ul>
-</div>
+<div class = "pozicija">
 {{!base}}
+</div>
+</div>
 </body>
 </html>

@@ -145,6 +145,9 @@ def zdravilo_uredi_post(id_zdr):
 
 @route('/storitve/dodaj_zdravilo/', method = 'GET')
 def dodaj_zdravilo(napaka = False):
+    napaka = ""
+    if request.query.napaka == "1":
+        napaka = "Napačen vnos podatkov!"
     return template('dodaj_zdravilo', napaka = napaka)
 @route('/storitve/dodaj_zdravilo/', method = 'POST')
 def dodaj_zdravilo_post():
@@ -156,9 +159,7 @@ def dodaj_zdravilo_post():
     try:
         model.dodaj_zdravilo(ime,cena,min_zaloga,recept,trenutna_zaloga)
     except Exception as e:
-        print(e)
-        #redirect('/storitve/dodaj_zdravilo/')
-        ##kaj tuki nardit????
+        redirect('/storitve/dodaj_zdravilo/?napaka=1')
     redirect('/')
 
 @route('/storitve/dodaj_storitev/', method = 'GET')
@@ -174,7 +175,7 @@ def dodaj_storitev_post():
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'GET')
 def storitev_uredi(id_stor):
-    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje(id_stor))
+    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje2(id_stor))
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'POST')
 def storitev_uredi_post(id_stor):

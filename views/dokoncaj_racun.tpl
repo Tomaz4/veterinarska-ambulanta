@@ -1,9 +1,4 @@
-<!doctype html>
-<html>
-<head>
-</head>
-
-<body>
+% rebase('base.tpl', title='Page Title')
 {{datum}}
 {{ura}}
 {{trajanje}}
@@ -17,5 +12,3 @@
 %for el in seznamStoritev:
 {{el}}
 %end
-</body>
-</html>

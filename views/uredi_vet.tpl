@@ -1,7 +1,4 @@
-<!doctype html>
-<html>
-<head>
-</head>
+% rebase('base.tpl', title='Page Title')
 %podatek = podatek[0]
 <body>
 <form action = '/veterinarji/uredi_vet/{{podatek['id']}}/' method = 'POST'>

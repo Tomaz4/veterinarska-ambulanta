@@ -1,9 +1,4 @@
-<!doctype html>
-<html>
-<head>
-
-</head>
-<body>
+% rebase('base.tpl', title='Page Title')
 {{datum}}
 {{ura}}
 {{trajanje}}
@@ -32,5 +27,3 @@
 </select>
 <button type = "submit">POTRDI</button>
 </form>
-</body>
-</html>

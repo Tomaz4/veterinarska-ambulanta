@@ -1,9 +1,4 @@
-<!doctype>
-<html>
-<head>
-</head>
-
-<body>
+% rebase('base.tpl', title='Page Title')
 <form action='/storitve/dodaj_zdravilo/' method = 'POST'>
 Ime zdravila: <input name = "ime_zdr" type = "text"/>
 <br/>
@@ -20,6 +15,6 @@ Trenutna zaloga: <input name = "trenutna_zaloga" type = "text"/>
 Recept: 
 <br/>
 <button type = "submit">POTRDI</button>
+
+{{napaka}}
 </form>
-</body>
-</html>

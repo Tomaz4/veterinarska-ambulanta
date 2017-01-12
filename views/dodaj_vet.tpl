@@ -1,8 +1,4 @@
-<!doctype>
-<html>
-<head>
-</head>
-
+% rebase('base.tpl', title='Page Title')
 <body>
 <form action = '/veterinarji/dodaj_vet/' method = 'POST'>
 Ime: <input type = "text" name = 'ime'/> <br/>
@@ -13,5 +9,3 @@ Datum rojstva: <input type = "text" name = 'datum_rojstva'/><br/>
 Naslov: <input type = "text" name = 'naslov'/><br/>
 <button type = 'submit'>SHRANI</button>
 </form>
-</body>
-</html>

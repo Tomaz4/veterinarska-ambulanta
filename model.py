@@ -259,10 +259,16 @@ def izpisi_vsa_imena(imeZivali):
 ##            seznamVsehImen.append(str(imeZiv + " " + datum_roj + " " + spol + " " + pridobi_pasmo(el[7]) + " " + pridobi_barvo(el[8])+ " " + el[10] + " " + el[11] + " " + str(el[14]) + "\n"))
 ##        return seznamVsehImen
 
-def vrni_vse_veterinarje(id_stor):
+def vrni_vse_veterinarje2(id_stor):
     sql = ''' select * from veterinarji where id not in (select veterinar_storitev.id_veterinarja from veterinar_storitev join veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id where veterinar_storitev.id_storitve = ?) and zaposlen = 'DA' '''
     
     return list(con.execute(sql,[id_stor]))
+
+def vrni_vse_veterinarje():
+    sql = ''' select * from veterinarji'''
+
+    
+    return list(con.execute(sql))
 
 def vrni_veterinar_storitev(idVeterinarja):
     sql = '''select storitve.ime from veterinar_storitev join storitve on veterinar_storitev.id_storitve = storitve.id where id_veterinarja = ?'''

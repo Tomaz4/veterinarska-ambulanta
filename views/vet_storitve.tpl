@@ -1,6 +1,4 @@
-<!doctype html>
-<html>
-<body>
+% rebase('base.tpl', title='Page Title')
 <ul>
 %for storitev in storitve:
 <li>
@@ -9,5 +7,3 @@
 </li>	
 %end
 </ul>
-</body>
-</html>

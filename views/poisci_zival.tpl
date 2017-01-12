@@ -1,7 +1,4 @@
-<!doctype html>
-<html>
-<head>
-<meta charset = 'UTF-8'/>
+% rebase('base.tpl', title='Page Title')
 <style>
 input[type=text] {
     width: 50%;
@@ -59,11 +56,9 @@ tr:nth-child(even){background-color: #f2f2f2}
 </head>
 
 <body>
-
 <center>
 <form action='/poisci_zival/' method = "GET">
-Vnesi ime živali:
-<br/>
+<p style = "text-transform: uppercase">Vnesi ime živali:<p>
 <input type='text' name = 'ime_zivali'/>
 <br/>
 <button type = 'submit' id = "gumbPoisci"> POIŠČI </button>
@@ -72,11 +67,7 @@ Vnesi ime živali:
 
 
 <center>
-%if not podatki:
-<p style = "font-size:20px"><b>Živali s tem imenom ni v bazi. Preverite vaš vnos!<b><p>
-%elif podatki == "":
-% pass
-%else:
+
 <div id = "okvir_tabela">
 <table id = "tabela">
 <tr>
@@ -104,7 +95,4 @@ Vnesi ime živali:
 %end
 </table>
 </div>
-%end
 </center>
-</body>
-</html>

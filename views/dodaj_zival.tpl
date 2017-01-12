@@ -1,6 +1,1 @@
-<!doctype html>
-<html>
-<body>
-Dodaj žival
-</body>
-</html>
+% rebase('base.tpl', title='Page Title')

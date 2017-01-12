@@ -1,27 +1,35 @@
-<!doctype html>
-<html>
-<head>
+% rebase('base.tpl', title='Page Title')
+<style>
+.pozicija {position: relative; 
+			left:150px;
+			bottom:100px;}
 
-</head>
-
-<body>
+input[type = text] {
+	height: 20px;
+	width: 20%;
+	position: relative;
+	left: 50px;
+}
+</style>
+<div class = "pozicija">
 <form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/racun/" method = "GET">
 
-Datum: <input type = "text" name = "datum"/>
-Ura: <input type = "text" name = "ura"/>
-Teža: <input type = "text" name = "teza"/>
-Ambulanta: <input type = "text" name = "ambulanta"/>
-Trajanje: <input type = "text" name = "trajanje"/>
-Opombe: <input type = "text" name = "opombe"/>
+DATUM: <input type = "text" name = "datum"/> <br/>
+URA: <input type = "text" name = "ura"/> <br/>
+TEŽA: <input type = "text" name = "teza"/> <br/>
+AMBULANTA: <input type = "text" name = "ambulanta"/> <br/>
+TRAJANJE: <input type = "text" name = "trajanje"/> <br/>
+OPOMBE: <input type = "text" name = "opombe"/> <br/>
+SEZNAM ZDRAVIL: <br/>
 <select name="zdravila_form" multiple>
 %for zdr in zdravila:
 %    id_zdr = zdr['id']
 %    ime_zdr = zdr['ime']
 <option value="{{id_zdr}}">{{ime_zdr}}</option>
 %end
-
 </select>
-
+<br/>
+VETERINAR:
 <select name="vet">
 %for veter in veterinarji:
 %   if veter['zaposlen'] == 'DA':
@@ -36,5 +44,4 @@ Opombe: <input type = "text" name = "opombe"/>
 <button type = "submit">Naprej</button>
 
 </form>
-</body>
-</html>
+</div>
