@@ -31,14 +31,27 @@ def dodaj_obisk(id_zivali):
 
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/', method = "GET")
 def dokoncaj_racun(id_zivali):
-    datum1 = request.query.datum
-    ura1 = request.query.ura
-    trajanje1 = request.query.trajanje
-    ambulanta1 = request.query.ambulanta
-    opombe1 = request.query.opombe
-    teza1 = request.query.teza
-    seznam_zdravil1 = request.query.getall('zdravila_form')
-    veterinar_id1 = int(request.query.vet)
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Premalo zdravila imaš na zalogi!'
+        datum1 = request.query.datum
+        ura1 = request.query.ura
+        trajanje1 = request.query.trajanje
+        ambulanta1 = request.query.ambulanta
+        opombe1 = request.query.opombe
+        teza1 = request.query.teza
+        seznam_zdravil1 = request.query.getall('zdravila_form')
+        veterinar_id1 = int(request.query.vet)
+    else:
+        datum1 = request.query.datum
+        ura1 = request.query.ura
+        trajanje1 = request.query.trajanje
+        ambulanta1 = request.query.ambulanta
+        opombe1 = request.query.opombe
+        teza1 = request.query.teza
+        seznam_zdravil1 = request.query.getall('zdravila_form')
+        veterinar_id1 = int(request.query.vet)
+    
     return template('racun.tpl',datum = datum1, teza = teza1, ura = ura1, trajanje = trajanje1,
                     ambulanta = ambulanta1, opombe = opombe1, seznam_zdravil = seznam_zdravil1,
                     sezImenaZdravil = model.vrni_imena_zdravil(seznam_zdravil1),
@@ -64,11 +77,14 @@ def dokoncaj_racun_post(id_zivali):
     seznam_zdravil_id = request.forms.getall('sez_zdravil_id')
     for el in seznam_zdravil_id:
         print(repr(el))
-#    try:
-    model.zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali)
-#    except:
-#        return template('racun.tpl',datum = datum, teza = teza, ura = ura, trajanje = trajanje, ambulanta = ambulanta, opombe = opombe, seznam_zdravil = seznam_zdravil, sezImenaZdravil = model.vrni_imena_zdravil(seznam_zdravil),
-#                        veterinar_id = veterinar_id, vet_ime = model.vrni_veterinarja_ime(veterinar_id), id_zival = id_zivali,seznam_storitev = model.vrni_vet_storitev_vse(veterinar_id))
+    try:
+        model.zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali)
+    except:
+        niz = ''
+        for el in seznam_zdravil_id:
+            niz+= '&zdravila_form='+str(el)
+        redirect('/poisci_zival/informacije/{0}/dodaj_obisk/racun/?napaka=1&datum={1}&ura={2}&teza={3}&ambulanta={4}&trajanje={5}&opombe={6}&{7}&vet={8}'
+                 .format(id_zivali,datum,ura,teza,ambulanta,trajanje,opombe,niz,veterinar_id))
         
 
             
@@ -86,7 +102,10 @@ def veterinarji():
 
 @route('/veterinarji/uredi_vet/<id_vet>/', method = 'GET')
 def uredi_vet(id_vet):
-    return template('uredi_vet', podatek = model.pridobi_vse_vet_podatke(id_vet))
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Napačen vnos podatkov!'
+    return template('uredi_vet', podatek = model.pridobi_vse_vet_podatke(id_vet),napaka = napaka)
 
 @route('/veterinarji/uredi_vet/<id_vet>/', method = 'POST')
 def uredi_vet_post(id_vet):
@@ -96,7 +115,10 @@ def uredi_vet_post(id_vet):
     email = request.forms.email
     datum_rojstva = request.forms.datum_rojstva
     naslov = request.forms.naslov
-    model.uredi_vet(ime, priimek, telefon,email, datum_rojstva, naslov, id_vet)
+    try:
+        model.uredi_vet(ime, priimek, telefon,email, datum_rojstva, naslov, id_vet)
+    except:
+        redirect('/veterinarji/uredi_vet/{0}/?napaka=1'.format(id_vet))
     redirect('/')
 
 @route('/veterinarji/<id_vet>')
@@ -105,7 +127,10 @@ def veterinar_storitve(id_vet):
 
 @route('/veterinarji/dodaj_vet/')
 def dodaj_vet():
-    return template('dodaj_vet')
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Napačen vnos podatkov!'
+    return template('dodaj_vet', napaka = napaka)
 
 @route('/veterinarji/dodaj_vet/', method= 'POST')
 def dodaj_vet_post():
@@ -115,7 +140,10 @@ def dodaj_vet_post():
     email = request.forms.email
     datum_rojstva = request.forms.datum_rojstva
     naslov = request.forms.naslov
-    model.dodaj_veterinarja(ime, priimek, telefon,email, datum_rojstva, naslov)
+    try:
+        model.dodaj_veterinarja(ime, priimek, telefon,email, datum_rojstva, naslov)
+    except:
+        redirect('/veterinarji/dodaj_vet/?napaka=1')
     redirect('/')
 
 @route('/dodaj_zival/')
@@ -132,7 +160,10 @@ def storitve():
 
 @route('/storitve/zdravilo_uredi/<id_zdr>/',method = 'GET')
 def zdravilo_uredi(id_zdr):
-    return template('zdravilo_uredi', podatki = model.vrni_doloceno_zdravilo(id_zdr))
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Napačen vnos podatkov!'
+    return template('zdravilo_uredi', podatki = model.vrni_doloceno_zdravilo(id_zdr),napaka = napaka)
 
 @route('/storitve/zdravilo_uredi/<id_zdr>/',method = 'POST')
 def zdravilo_uredi_post(id_zdr):
@@ -140,7 +171,10 @@ def zdravilo_uredi_post(id_zdr):
     cena = request.forms.cena
     trenutna_zaloga = request.forms.trenutna_zaloga
     minimalna_zaloga = request.forms.minimalna_zaloga
-    model.posodobi_zdravilo(ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr)
+    try:
+        model.posodobi_zdravilo(ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr)
+    except:
+        redirect('/storitve/zdravilo_uredi/{0}/?napaka=1'.format(id_zdr))
     redirect('/')
 
 @route('/storitve/dodaj_zdravilo/', method = 'GET')
@@ -164,29 +198,41 @@ def dodaj_zdravilo_post():
 
 @route('/storitve/dodaj_storitev/', method = 'GET')
 def dodaj_storitev():
-    return template('dodaj_storitev')
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Napačen vnos podatkov!'
+    return template('dodaj_storitev', napaka = napaka)
 @route('/storitve/dodaj_storitev/', method = 'POST')
 def dodaj_storitev_post():
     cena_stor = request.forms.cena_stor
     ime_stor = request.forms.ime_stor
-    model.vstavi_novo_storitev(cena_stor,ime_stor)
+    try:
+        model.vstavi_novo_storitev(cena_stor,ime_stor)
+    except:
+        redirect('/storitve/dodaj_storitev/?napaka=1')
     redirect('/')
 
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'GET')
 def storitev_uredi(id_stor):
-    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje2(id_stor))
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Napačen vnos podatkov!'
+    return template('storitev_uredi', podatki = model.vrni_doloceno_storitev(id_stor), veterinarji = model.vrni_vse_veterinarje2(id_stor), napaka = napaka)
 
 @route('/storitve/storitev_uredi/<id_stor>/', method = 'POST')
 def storitev_uredi_post(id_stor):
     ime_stor = request.forms.ime_storitve
     cena_stor = request.forms.cena_storitve
-    model.posodobi_storitev(id_stor,cena_stor,ime_stor)
-    sez = request.forms.getall('vet')
-    sez_int = []
-    for el in sez:
-        sez_int.append(int(el))
-    model.dodaj_vet_stor(id_stor,sez_int)
+    try:
+        model.posodobi_storitev(id_stor,cena_stor,ime_stor)
+        sez = request.forms.getall('vet')
+        sez_int = []
+        for el in sez:
+            sez_int.append(int(el))
+        model.dodaj_vet_stor(id_stor,sez_int)
+    except:
+        redirect('/storitve/storitev_uredi/{0}/?napaka=1'.format(id_stor))
     redirect('/')
 run(debug = True)
 

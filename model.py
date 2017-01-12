@@ -57,7 +57,7 @@ def vstavi_zival(ime, datum_rojstva, spol, barva, pasma, id_lastnika):
     barva = barva.strip()
     vstavi_zival_pomozna(ime,datum_rojstva,spol,barva,pasma,id_lastnika)
 
-def dodaj_veterinarja(ime,priimek):
+def dodaj_veterinarja2(ime,priimek):
     ''' Funkcija doda veterinarja v tabelo veterinarji. '''
     sql = ''' INSERT INTO veterinarji (ime,priimek) VALUES (?,?) '''
     con.execute(sql,[ime,priimek])
@@ -289,6 +289,13 @@ def dodaj_zdravilo(recept,cena,trenutna_zaloga,ime,minimalna_zaloga):
     
 def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov):
     sql = '''INSERT INTO veterinarji (ime,priimek,telefon,email,datum_rojstva,naslov) VALUES (?,?,?,?,?,?)'''
+    if ime == '':
+        raise Exception('napaka')
+    if priimek == '':
+        raise Exception('napaka')
+    if telefon == '':
+        raise Exception('napaka')
+
     con.execute(sql,[ime,priimek,telefon,email,datum_rojstva,naslov])
 
 def vrni_doloceno_storitev(idS):
@@ -297,6 +304,12 @@ def vrni_doloceno_storitev(idS):
 
 def posodobi_storitev(idS,novaCena,novoIme):
     sql = '''update storitve set cena = ?, ime = ? where id = ?'''
+    try:
+        novaCena = int(novaCena)
+    except:
+        raise Exception('napaka')
+    if novoIme == '':
+        raise Exception('napaka')
     con.execute(sql,[novaCena, novoIme,idS])
     con.commit()
 
@@ -388,6 +401,15 @@ def vrni_vet_storitev_vse(id_vet):
 
 def vstavi_novo_storitev(cena,ime):
     sql = ''' insert into storitve (cena, ime) values (?,?)'''
+    if ime == '':
+        raise Exception('napaka')
+    if cena == '':
+        cena = 0
+    else:
+        try:
+            cena = int(cena)
+        except:
+            raise Exception('napaka')
     con.execute(sql,[cena,ime])
     con.commit()
 
@@ -397,6 +419,12 @@ def pridobi_vse_vet_podatke(id_vet):
     
 def uredi_vet(ime, priimek, telefon, email, datum_roj, naslov, id_vet):
     sql = '''update veterinarji set ime = ?, priimek = ?, telefon = ?,email = ?, datum_rojstva = ?, naslov = ? where id = ?'''
+    if ime == '':
+        raise Exception('napaka')
+    if priimek == '':
+        raise Exception('napaka')
+    if telefon == '':
+        raise Exception('napaka')
     con.execute(sql,[ime, priimek, telefon, email, datum_roj, naslov, id_vet])
     con.commit()
 
@@ -410,6 +438,29 @@ def vrni_doloceno_zdravilo(id_zdr):
 
 def posodobi_zdravilo(ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr):
     sql = '''update zdravila set ime = ?, cena = ?, trenutna_zaloga = ?, minimalna_zaloga = ? where id = ?'''
+    if ime == '':
+        raise Exception('napaka!')
+    if cena == '':
+        cena = 0
+    else:
+        try:
+            cena = int(cena)
+        except:
+            raise Exception('napaka')
+    if trenutna_zaloga == '':
+        trenutna_zaloga = 0
+    else:
+        try:
+            trenutna_zaloga = int(trenutna_zaloga)
+        except:
+            raise Exception('napaka')
+    if minimalna_zaloga == '':
+        minimalna_zaloga = 0
+    else:
+        try:
+            minimalna_zaloga = int(minimalna_zaloga)
+        except:
+            raise Exception('napaka')
     con.execute(sql,[ime, cena, trenutna_zaloga, minimalna_zaloga, id_zdr])
     con.commit()
 
