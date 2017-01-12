@@ -1,8 +1,12 @@
 % rebase('base.tpl', title='Page Title')
-<form action = '/veterinarji/dodaj_vet/'>
-<button type = "submit">DODAJ VETERINARJA</button>
-</form>
-
+<style>
+.pozicija {
+	position:relative;
+	bottom: 170px;
+	left:270px;
+	}
+table {width:60%;}
+</style>
 <table id = "tabela">
 <tr>
 	<th><b>IME</b></th>
@@ -12,6 +16,7 @@
 	<th><b>DATUM ROJSTVA</b></th>
 	<th><b>NASLOV</b></th>
 	<th><b>STORITVE</b></th>
+	<th><b>UREDI</b></th>
 
 </tr>
 %for veterinar in vet:
@@ -33,6 +38,9 @@
 </tr>
 %end
 </table>
+<form action = '/veterinarji/dodaj_vet/'>
+<div class = "prestavi">
+<button type = "submit" class = "gumbOranzen">DODAJ VETERINARJA</button>
 </div>
-</body>
-</html>
+</form>
+</div>

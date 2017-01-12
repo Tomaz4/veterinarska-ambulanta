@@ -1,72 +1,19 @@
 % rebase('base.tpl', title='Page Title')
 <style>
-input[type=text] {
-    width: 50%;
-    padding: 6px 10px;
-    margin: 10px 0;
-    display: block;
-	height: 25px;
-    border: 1px solid #b35900;
-    border-radius: 5px;
-	font-size: 18px;
-}
-
-#gumbPoisci {
-    width: 30%;
-    background-color: #ff8000;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-	font-size = 18px;
-	height:auto;
-}
-
-#gumbPoisci:hover {
-    background-color: #ffa64d;
-}
-
-input[type=text]:active {
-    border: 1px solid #663300;
-}
-
-#okvir_tabela{display: inline-block;
-				position: relative;
-				top:100px;}
-
-th, td {
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-top: 20px;
-}	
-
-
-table {
-	border-collapse:collapse;
-}	
-
-th {background-color:#ff8000;
-	color:white;}			
-
-tr:nth-child(even){background-color: #f2f2f2}
-
+.pozicija {
+	position:relative;
+	bottom: 170px;
+	left:270px;
+	}
 </style>
-</head>
-
-<body>
-<center>
 <form action='/poisci_zival/' method = "GET">
 <p style = "text-transform: uppercase">Vnesi ime živali:<p>
 <input type='text' name = 'ime_zivali'/>
 <br/>
-<button type = 'submit' id = "gumbPoisci"> POIŠČI </button>
+<div class = "prestavi">
+<button type = 'submit' class = "gumbOranzen"> POIŠČI </button>
+</div>
 </form>
-</center>
-
-
-<center>
 
 <div id = "okvir_tabela">
 <table id = "tabela">
@@ -95,4 +42,3 @@ tr:nth-child(even){background-color: #f2f2f2}
 %end
 </table>
 </div>
-</center>

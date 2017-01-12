@@ -1,7 +1,45 @@
 % rebase('base.tpl', title='Page Title')
-<form action = '/storitve/dodaj_storitev/'>
-<button type = "submit">DODAJ STORITEV</button>
-</form>
+<style>
+.pozicija {
+	position:relative;
+	bottom: 150px;
+	left:270px;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#skrijTabStor").click(function(){
+        $("#tabStor").hide(1000);
+		$("#skrijTabStor").hide()
+		$("#prikazTabStor").show()
+		
+    });
+    $("#prikazTabStor").click(function(){
+        $("#tabStor").show(1000);
+		$("#prikazTabStor").hide()
+		$("#skrijTabStor").show();
+    });
+});
+
+$(document).ready(function(){
+    $("#skrijTabZdr").click(function(){
+        $("#tabZdr").hide(1000);
+		$("#skrijTabZdr").hide()
+		$("#prikazTabZdr").show();
+    });
+    $("#prikazTabZdr").click(function(){
+        $("#tabZdr").show(1000);
+		$("#prikazTabZdr").hide()
+		$("#skrijTabZdr").show();
+    });
+});
+</script>
+<h3 class = "podnaslov1">TABELA STORITEV</h6>
+<button id = "prikazTabStor" class = "gumbOranzen">Prikaži tabelo</button>
+<button id = "skrijTabStor" class = "gumbOranzen">Skrij tabelo</button>
+
+<div id = "tabStor">
 <table>
 <tr>
 <th>IME</th>
@@ -19,10 +57,15 @@
 </tr>
 %end
 </table>
-<form action = '/storitve/dodaj_zdravilo/'>
-<button type = "submit"> DODAJ ZDRAVILO</button>
-</form>
-<table>
+</div>
+
+<br/>
+<h3 class = "podnaslov1">TABELA ZDRAVIL</h3>
+<button id = "prikazTabZdr" class = "gumbOranzen">Prikaži tabelo zdravil</button>
+<button id = "skrijTabZdr" class = "gumbOranzen">Skrij tabelo zdravil</button>
+
+<div id = "tabZdr">
+<table style = "width:470px">
 <tr>
 <th>IME</th>
 <th>CENA>/th>
@@ -45,10 +88,19 @@
 %if int(zdravilo['trenutna_zaloga'])>= int(zdravilo['minimalna_zaloga']):
 %	dovolj = 'DA'
 %else:
-%	dovolj = 'NE, dokupi vsaj'+ str(int(zdravilo['minimalna_zaloga']) - int(zdravilo['trenutna_zaloga'])) + ' enot'
+%	dovolj = 'NE, dokupi vsaj '+ str(int(zdravilo['minimalna_zaloga']) - int(zdravilo['trenutna_zaloga'])) + ' enot'
 %end
 <td>{{dovolj}}</td>
 <td><a href = '/storitve/zdravilo_uredi/{{zdravilo['id']}}/'>uredi</a></td>
 </tr>
 %end
 </table>
+</div>
+
+</br>
+<form action = '/storitve/dodaj_zdravilo/'>
+<button type = "submit" class = "gumbOranzen"> DODAJ ZDRAVILO</button>
+</form>
+<form action = '/storitve/dodaj_storitev/'>
+<button type = "submit" class = "gumbOranzen">DODAJ STORITEV</button>
+</div>

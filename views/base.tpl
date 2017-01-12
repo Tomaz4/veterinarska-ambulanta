@@ -2,12 +2,64 @@
 <html>
 <head>
 <style>
-.zaviti-robovi {border-radius: 8px;}
-.pozicija {
-	position:relative;
-	left:150px;
-	bottom:100px;
+input[type=text] {
+    width: 50%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    display: block;
+	height: 25px;
+    border: 1px solid #b35900;
+    border-radius: 5px;
+	font-size: 18px;
+	font-family:courier;
+	font-style: normal;
 }
+
+.gumbOranzen {
+    width: 30%;
+    background-color: #ff8000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+	font-size = 18px;
+	height:auto;
+}
+
+.gumbOranzen:hover {
+    background-color: #ffa64d;
+}
+
+input[type=text]:active {
+    border: 1px solid #663300;
+}
+
+#okvir_tabela{display: inline-block;
+				position: relative;
+				top:100px;}
+
+th, td {
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-top: 20px;
+}	
+
+
+table {
+	border-collapse:collapse;
+}	
+
+th {background-color:#ff8000;
+	color:white;}			
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+
+
+.zaviti-robovi {border-radius: 8px;}
+
 #slikaK {
 	float:right;
 }
@@ -19,6 +71,11 @@
 	text-shadow: 2px 2px #ff8533;
 	width: 500px;
 }
+
+.podnaslov1 {
+
+	font-family:"Lucida console";
+	text-shadow: 1px 1.5px #ff8533;}
 
 ul {
     list-style-type: none;
@@ -60,7 +117,7 @@ hr {background-color: #ff6600;
 	}
 #okvir_tabela{display: inline-block;
 				position: relative;
-				top:100px;}
+				top:70px;}
 
 th, td {
 	padding-left: 20px;

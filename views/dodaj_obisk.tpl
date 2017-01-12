@@ -1,9 +1,11 @@
 % rebase('base.tpl', title='Page Title')
-<style>
-.pozicija {position: relative; 
-			left:150px;
-			bottom:100px;}
 
+<style>
+.pozicija {
+	position:relative;
+	bottom: 70px;
+	left:170px;
+	}
 input[type = text] {
 	height: 20px;
 	width: 20%;

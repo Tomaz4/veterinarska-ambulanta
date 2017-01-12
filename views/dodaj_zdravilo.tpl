@@ -1,4 +1,12 @@
 % rebase('base.tpl', title='Page Title')
+<style>
+.pozicija {
+	position:relative;
+	bottom: 80px;
+	left:170px;
+	}
+</style>
+<div class = "pozicija">
 <form action='/storitve/dodaj_zdravilo/' method = 'POST'>
 Ime zdravila: <input name = "ime_zdr" type = "text"/>
 <br/>
@@ -18,3 +26,4 @@ Recept:
 
 {{napaka}}
 </form>
+</div>
