@@ -15,6 +15,16 @@
 <input type = "text" name = 'email' value = '{{podatek['email']}}'/>
 <input type = "text" name = 'datum_rojstva' value = '{{podatek['datum_rojstva']}}'/>
 <input type = "text" name = 'naslov' value = '{{podatek['naslov']}}'/>
+Zaposlen: <select name = "zaposlen">
+%if podatek['zaposlen'] == 'DA':
+<option value = "DA" selected>DA</option>
+<option value = "NE">NE</option>
+%else:
+<option value = "DA">DA</option>
+<option value = "NE" selected>NE</option>
+%end
+</select>
+<br/>
 <button type = "submit" class = "gumbOranzen">POTRDI</button>
 </form>
 </body>

@@ -45,7 +45,6 @@ $(document).ready(function(){
 <th>IME</th>
 <th>CENE</th>
 <th>UREDI</th>
-<th>POGLEJ VETERINARJE</th>
 </tr>
 
 %for storitev in storitve:
@@ -53,7 +52,6 @@ $(document).ready(function(){
 <td>{{storitev['ime']}}</td>
 <td>{{storitev['cena']}}</td>
 <td><a href = "/storitve/storitev_uredi/{{storitev['id']}}/">uredi</a></rd>
-<td><a href = "#">Poglej veterinarje</a></td>
 </tr>
 %end
 </table>

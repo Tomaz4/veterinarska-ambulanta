@@ -19,6 +19,10 @@ Telefon: <input type = "text" name = 'telefon'/> <br/>
 Email: <input type = "text" name = 'email'/> <br/>
 Datum rojstva: <input type = "text" name = 'datum_rojstva'/><br/>
 Naslov: <input type = "text" name = 'naslov'/><br/>
+Zaposlen: <select name = "zaposlen">
+<option value = "DA">DA</option>
+<option value = "NE">NE</option>
+</select><br/>
 <button type = 'submit' class = "gumbOranzen">SHRANI</button>
 </div>
 

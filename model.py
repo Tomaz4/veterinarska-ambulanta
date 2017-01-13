@@ -285,8 +285,8 @@ def dodaj_zdravilo(recept,cena,trenutna_zaloga,ime,minimalna_zaloga):
     con.execute(sql,[recept,cena,trenutna_zaloga,ime,minimalna_zaloga])
     con.commit()
     
-def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov):
-    sql = '''INSERT INTO veterinarji (ime,priimek,telefon,email,datum_rojstva,naslov) VALUES (?,?,?,?,?,?)'''
+def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov,zaposlen):
+    sql = '''INSERT INTO veterinarji (ime,priimek,telefon,email,datum_rojstva,naslov,zaposlen) VALUES (?,?,?,?,?,?,?)'''
     if ime == '':
         raise Exception('napaka')
     if priimek == '':
@@ -294,7 +294,7 @@ def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov):
     if telefon == '':
         raise Exception('napaka')
 
-    con.execute(sql,[ime,priimek,telefon,email,datum_rojstva,naslov])
+    con.execute(sql,[ime,priimek,telefon,email,datum_rojstva,naslov,zaposlen])
     con.commit()
 
 def vrni_doloceno_storitev(idS):
@@ -347,6 +347,14 @@ def pridobi_podatke_storitev(idStor):
     return list(con.execute(sql,[idStor]).fetchone())
 
 def zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali):
+    # pazi da imaš za vsa zdravila dovolj zaloge!!!
+    for i in range(len(seznam_zdravil_id)):
+        element = int(seznam_zdravil_id[i])
+        zdravilo_podatki = pridobi_podatke_zdravilo(element)
+        trenutna_zaloga = zdravilo_podatki[0]
+        zeljena_kolicina = int(sezKolicinZdravil[i])
+        if zeljena_kolicina > trenutna_zaloga:
+            raise Exception("premalo izdelka")
     cena = 0
     for i in range(len(seznam_zdravil_id)):
         element = int(seznam_zdravil_id[i])
@@ -358,8 +366,6 @@ def zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterin
             cena += zeljena_kolicina*cena_izd
             nova_kolicina = trenutna_zaloga - zeljena_kolicina
             posodobi_kolicino(element, nova_kolicina)
-        else:
-            raise Exception("premalo izdelka imaš na zalogi")
     for stor in seznamStoritev:
         stor = int(stor)
         podatki_storitve = pridobi_podatke_storitev(stor)
@@ -416,15 +422,15 @@ def pridobi_vse_vet_podatke(id_vet):
     sql = '''select * from veterinarji where id = ?'''
     return list(con.execute(sql, [id_vet]))
     
-def uredi_vet(ime, priimek, telefon, email, datum_roj, naslov, id_vet):
-    sql = '''update veterinarji set ime = ?, priimek = ?, telefon = ?,email = ?, datum_rojstva = ?, naslov = ? where id = ?'''
+def uredi_vet(ime, priimek, telefon, email, datum_roj, naslov, id_vet, zaposlen):
+    sql = '''update veterinarji set ime = ?, priimek = ?, telefon = ?,email = ?, datum_rojstva = ?, naslov = ?, zaposlen = ? where id = ?'''
     if ime == '':
         raise Exception('napaka')
     if priimek == '':
         raise Exception('napaka')
     if telefon == '':
         raise Exception('napaka')
-    con.execute(sql,[ime, priimek, telefon, email, datum_roj, naslov, id_vet])
+    con.execute(sql,[ime, priimek, telefon, email, datum_roj, naslov, zaposlen,id_vet])
     con.commit()
 
 def vrni_zdravila():

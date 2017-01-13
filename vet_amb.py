@@ -115,8 +115,9 @@ def uredi_vet_post(id_vet):
     email = request.forms.email
     datum_rojstva = request.forms.datum_rojstva
     naslov = request.forms.naslov
+    zaposlen = request.forms.zaposlen
     try:
-        model.uredi_vet(ime, priimek, telefon,email, datum_rojstva, naslov, id_vet)
+        model.uredi_vet(ime, priimek, telefon,email, datum_rojstva, naslov, id_vet,zaposlen)
     except:
         redirect('/veterinarji/uredi_vet/{0}/?napaka=1'.format(id_vet))
     redirect('/')
@@ -140,8 +141,9 @@ def dodaj_vet_post():
     email = request.forms.email
     datum_rojstva = request.forms.datum_rojstva
     naslov = request.forms.naslov
+    zaposlen = request.forms.zaposlen
     try:
-        model.dodaj_veterinarja(ime, priimek, telefon,email, datum_rojstva, naslov)
+        model.dodaj_veterinarja(ime, priimek, telefon,email, datum_rojstva, naslov, zaposlen)
     except:
         redirect('/veterinarji/dodaj_vet/?napaka=1')
     redirect('/')
