@@ -15,9 +15,6 @@ input[type = text] {
 </style>
 <div class = "pozicija">
 <form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/racun/" method = "GET">
-
-DATUM: <input type = "text" name = "datum"/> <br/>
-URA: <input type = "text" name = "ura"/> <br/>
 TEŽA: <input type = "text" name = "teza"/> <br/>
 AMBULANTA: <input type = "text" name = "ambulanta"/> <br/>
 TRAJANJE: <input type = "text" name = "trajanje"/> <br/>

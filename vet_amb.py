@@ -1,5 +1,6 @@
 from bottle import route, run, template,static_file, get, post, request, redirect
 import model
+import time
 
 @route('/views/<filename>')
 def server_static(filename):
@@ -34,8 +35,6 @@ def dokoncaj_racun(id_zivali):
     napaka = ''
     if request.query.napaka == '1':
         napaka = 'Premalo zdravila imaš na zalogi!'
-        datum1 = request.query.datum
-        ura1 = request.query.ura
         trajanje1 = request.query.trajanje
         ambulanta1 = request.query.ambulanta
         opombe1 = request.query.opombe
@@ -52,7 +51,7 @@ def dokoncaj_racun(id_zivali):
         seznam_zdravil1 = request.query.getall('zdravila_form')
         veterinar_id1 = int(request.query.vet)
     
-    return template('racun.tpl',datum = datum1, teza = teza1, ura = ura1, trajanje = trajanje1,
+    return template('racun.tpl', teza = teza1, trajanje = trajanje1,
                     ambulanta = ambulanta1, opombe = opombe1, seznam_zdravil = seznam_zdravil1,
                     sezImenaZdravil = model.vrni_imena_zdravil(seznam_zdravil1),
                     veterinar_id = veterinar_id1, vet_ime = model.vrni_veterinarja_ime(veterinar_id1),
@@ -64,28 +63,30 @@ def dokoncaj_racun(id_zivali):
 
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/dokoncaj_racun/', method = "POST")
 def dokoncaj_racun_post(id_zivali):
-    print(dict(request.forms))
     sezKolicinZdravil = request.forms.getall('okenca')
     seznamStoritev = request.forms.getall('storitve')
-    datum = request.forms.datum
-    ura = request.forms.ura
+    datum = time.strftime("%d.%m.%Y")
+    ura = time.strftime("%H:%M:%S")
     trajanje = request.forms.trajanje
     ambulanta = request.forms.ambulanta
     opombe = request.forms.opombe
     teza = request.forms.teza
     veterinar_id = int(request.forms.veterinar)
     seznam_zdravil_id = request.forms.getall('sez_zdravil_id')
+    ime_lastnika = model.pridobi_lastnika(id_zivali)
     for el in seznam_zdravil_id:
         print(repr(el))
     try:
-        model.zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali)
+        cena = model.zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali)
     except:
         niz = ''
         for el in seznam_zdravil_id:
             niz+= '&zdravila_form='+str(el)
         redirect('/poisci_zival/informacije/{0}/dodaj_obisk/racun/?napaka=1&datum={1}&ura={2}&teza={3}&ambulanta={4}&trajanje={5}&opombe={6}&{7}&vet={8}'
                  .format(id_zivali,datum,ura,teza,ambulanta,trajanje,opombe,niz,veterinar_id))
-        
+    return template('dokoncaj_racun', datum = datum, ura = ura, cena = cena, ime_lastnika = ime_lastnika, seznam_kolicin_zdravil = sezKolicinZdravil, seznam_zdravil_ime = model.vrni_imena_zdravil(seznam_zdravil_id),
+                        ime_zivali = model.pridobi_ime_zivali(id_zivali), ime_vet = model.pridobi_ime_veterinarja(veterinar_id), seznam_storitev_ime_cena = model.pridobi_imena_cene_storitev_seznam(seznamStoritev),
+                    cene_zdravil = model.pridobi_cene_zdravil(seznam_zdravil_id))
 
             
         

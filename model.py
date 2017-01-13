@@ -375,6 +375,7 @@ def zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterin
     ustvari_vet_storitev_obisk(id_obiska,int(veterinar_id), seznamStoritev)
     ustvari_obisk_zdravilo(id_obiska,seznam_zdravil_id)
     con.commit()
+    return cena
 
 def ustvari_obisk(datum,ura,trajanje,ambulanta,opombe,cena,teza,id_zivali):
     sql = '''insert into obisk (cena,datum,teza,ambulanta,trajanje,id_zivali,opombe,ura) values (?,?,?,?,?,?,?,?)'''
@@ -499,3 +500,33 @@ def dodaj_zdravilo(ime,cena,min_zaloga,recept,trenutna_zaloga):
     
     con.execute(sql,[ime,cena,min_zaloga,rec,trenutna_zaloga])
     con.commit()
+
+def pridobi_lastnika(id_zivali):
+    sql = ''' select lastniki.ime, lastniki.priimek from lastniki join zivali on zivali.id_lastnika = lastniki.id where zivali.id = ?'''
+    return list(con.execute(sql,[id_zivali]).fetchone())
+
+def pridobi_ime_zivali(id_zivali):
+    sql = ''' select ime from zivali where id = ?'''
+    return list(con.execute(sql,[id_zivali]).fetchone())
+
+def pridobi_ime_veterinarja(id_vet):
+    sql = ''' select ime, priimek from veterinarji where id = ?'''
+    return list(con.execute(sql,[id_vet]).fetchone())
+def ime_storitve(id_stor):
+    sql = ''' select ime,cena from storitve where id = ?'''
+    return list(con.execute(sql,[id_stor]).fetchone())
+def pridobi_imena_cene_storitev_seznam(seznamStoritev):
+    sez = []
+    for el in seznamStoritev:
+        el = int(el)
+        ime_stor = ime_storitve(el)
+        sez.append([ime_stor[0],ime_stor[1]])
+    return sez
+
+def pridobi_cene_zdravil(sezzdravil):
+    sql = '''select cena from zdravila where id = ? '''
+    sez = []
+    for el in sezzdravil:
+        sez.append(list(con.execute(sql,[el]).fetchone()))
+    return sez
+        
