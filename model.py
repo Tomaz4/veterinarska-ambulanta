@@ -266,8 +266,6 @@ def vrni_vse_veterinarje2(id_stor):
 
 def vrni_vse_veterinarje():
     sql = ''' select * from veterinarji'''
-
-    
     return list(con.execute(sql))
 
 def vrni_veterinar_storitev(idVeterinarja):
@@ -297,6 +295,7 @@ def dodaj_veterinarja(ime,priimek,telefon,email,datum_rojstva,naslov):
         raise Exception('napaka')
 
     con.execute(sql,[ime,priimek,telefon,email,datum_rojstva,naslov])
+    con.commit()
 
 def vrni_doloceno_storitev(idS):
     sql = '''select * from storitve where id = ?'''
