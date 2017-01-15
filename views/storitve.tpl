@@ -8,6 +8,7 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
+
 $(document).ready(function(){
     $("#skrijTabStor").click(function(){
         $("#tabStor").hide(1000);
@@ -66,7 +67,7 @@ $(document).ready(function(){
 <table style = "width:470px">
 <tr>
 <th>IME</th>
-<th>CENA>/th>
+<th>CENA</th>
 <th>RECEPT</th>
 <th>TRENUTNA ZALOGA</th>
 <th>ALI JE DOVOLJ ZALOGE?</th>

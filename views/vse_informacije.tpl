@@ -1,9 +1,16 @@
 % rebase('base.tpl', title='Page Title')
-<ul>
-%for el in podatki:
-<li>
-{{dict(el)}}
-</a>
-</li>
+<style>
+.pozicija {
+	position:relative;
+	bottom: 70px;
+	left:170px;
+	}
+</style>
+%podatki = podatki[0]
+%for pod in podatki:
+{{pod}} </br>
 %end
-</ul>
+<table>
+<tr>
+</tr>
+</table>

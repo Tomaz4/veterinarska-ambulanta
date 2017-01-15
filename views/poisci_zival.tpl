@@ -7,7 +7,7 @@
 	}
 </style>
 <form action='/poisci_zival/' method = "GET">
-<p style = "text-transform: uppercase">Vnesi ime živali:<p>
+<p class = "nasloviOken">Vnesi ime živali:<p>
 <input type='text' name = 'ime_zivali'/>
 <br/>
 <div class = "prestavi">

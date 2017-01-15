@@ -7,19 +7,19 @@ input[type = text]{
 }
 .poz {
 position: relative;
-bottom:70px;
-overflow:auto;
+left: 270px;
+bottom:150px;
 }
 </style>
 <div class = "poz">
 <form action = '/veterinarji/dodaj_vet/' method = 'POST'>
-Ime: <input type = "text" name = 'ime'/> <br/>
-Priimek: <input type = "text" name = 'priimek'/> <br/>
-Telefon: <input type = "text" name = 'telefon'/> <br/>
-Email: <input type = "text" name = 'email'/> <br/>
-Datum rojstva: <input type = "text" name = 'datum_rojstva'/><br/>
-Naslov: <input type = "text" name = 'naslov'/><br/>
-Zaposlen: <select name = "zaposlen">
+<p class = "nasloviOken">Ime:</p> <input type = "text" name = 'ime'/> <br/>
+<p class = "nasloviOken">Priimek:</p> <input type = "text" name = 'priimek'/> <br/>
+<p class = "nasloviOken">Telefon:</p> <input type = "text" name = 'telefon'/> <br/>
+<p class = "nasloviOken">Email:</p> <input type = "text" name = 'email'/> <br/>
+<p class = "nasloviOken">Datum rojstva:</p> <input type = "text" name = 'datum_rojstva'/><br/>
+<p class = "nasloviOken">Naslov:</p> <input type = "text" name = 'naslov'/><br/>
+<p class = "nasloviOken">Zaposlen:</p> <select name = "zaposlen" class = "uredi_select">
 <option value = "DA">DA</option>
 <option value = "NE">NE</option>
 </select><br/>

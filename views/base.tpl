@@ -2,6 +2,26 @@
 <html>
 <head>
 <style>
+a {
+	text-decoration:none;
+	color: blue;
+}
+.nasloviOken {
+text-transform:uppercase;
+font-family:"Lucida console";
+text-shadow: 1px 1px #ff8533;
+margin:0;
+
+}
+.urediOkno {
+	border: #ffa366 2px solid;
+	width: 52%;
+	overflow:auto;
+}
+.uredi_select{
+	height: 30px;
+	border: #ffa366 2px solid;
+}
 input[type=text] {
     width: 50%;
     padding: 6px 10px;
@@ -140,7 +160,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 <body>
 <div class = "naslov">
-<h1 style = "float:left; width:auto;"> VETERINARSKA AMBULANTA </h1>
+<h1 style = "float:left; width:auto;"><a href = "/" style = "color: inherit;"> VETERINARSKA AMBULANTA </a></h1>
 </div>
 <div style = "clear:both">
 <hr size = "25"/>
@@ -154,6 +174,7 @@ tr:nth-child(even){background-color: #f2f2f2}
   </li>
   <li><a href="/veterinarji/">Veterinarji</a></li>
   <li><a href="/storitve/">Storitve in zdravila</a></li>
+  <li><a href = "/uredi_lastnika/">Uredi lastnika</a></li>
 </ul>
 <div class = "pozicija">
 {{!base}}

@@ -7,9 +7,9 @@
 	}
 </style>
 <form action='/storitve/dodaj_storitev/' method = 'POST'>
-Ime storitve: <input name = "ime_stor" type = "text"/>
+<p class = "nasloviOken">Ime storitve:</p> <input name = "ime_stor" type = "text"/>
 <br/>
-Cena storitve: <input name = "cena_stor" type = "text"/>
+<p class = "nasloviOken">Cena storitve:</p> <input name = "cena_stor" type = "text"/>
 <br/>
 <button type = "submit" class = "gumbOranzen">POTRDI</button>
 </form>

@@ -1,12 +1,20 @@
 % rebase('base.tpl', title='Page Title')
+<style>
+.pozicija {
+	position:relative;
+	bottom: 170px;
+	left:270px;
+	}
+</style>
 %pod = podatki[0]
 <div>
 <form action = "/storitve/storitev_uredi/{{pod['id']}}/" method = "POST">
-Ime storitve: <input type = "text" name = "ime_storitve" value = '{{pod['ime']}}'/>
+<p class = "nasloviOken">Ime storitve:</p> <input type = "text" name = "ime_storitve" value = '{{pod['ime']}}'/>
 <br/>
-cena storitve: <input type = "text" name = "cena_storitve" value = '{{pod['cena']}}'/>
+<p class = "nasloviOken">cena storitve:</p> <input type = "text" name = "cena_storitve" value = '{{pod['cena']}}'/>
 <br/>
-<select name="vet" multiple>
+<p class = "nasloviOken">veterinarji </p>
+<select name="vet" multiple class = "urediOkno">
 %for vet in veterinarji:
 %	id_veter = vet['id']
 %	ime_veter = vet['ime']
@@ -15,7 +23,8 @@ cena storitve: <input type = "text" name = "cena_storitve" value = '{{pod['cena'
 <option value="{{id_veter}}">{{ime_veter}} {{priimek_veter}} {{telefon_veter}}</option>
 %end
 </select>
-<button type = "submit">SHRANI</button>
+<br/>
+<button type = "submit" class = "gumbOranzen">SHRANI</button>
 </form>
 </div>
 

@@ -239,3 +239,6 @@ def storitev_uredi_post(id_stor):
     redirect('/')
 run(debug = True)
 
+@route('/uredi_lastnika/')
+def uredi_lastnika():
+    return template('uredi_lastnika')

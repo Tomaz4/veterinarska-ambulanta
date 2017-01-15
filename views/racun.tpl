@@ -1,11 +1,12 @@
 % rebase('base.tpl', title='Page Title')
+<style>
+.pozicija {
+	position:relative;
+	bottom: 150px;
+	left:270px;
+	}
+</style>
 
-
-{{trajanje}}
-{{ambulanta}}
-{{opombe}}
-{{vet_ime['ime']}}
-{{vet_ime['priimek']}}
 <form action = "/poisci_zival/informacije/{{id_zivali}}/dodaj_obisk/racun/dokoncaj_racun/" method = "POST">
 <input type="hidden" name="trajanje" value = {{trajanje}}>
 <input type="hidden" name="ambulanta" value={{ambulanta}}>
@@ -18,10 +19,11 @@
 %for element in sezImenaZdravil:
 <br>{{element[0]['ime']}}<input type = "TEXT" name = "okenca">
 %end
-<select name = "storitve" multiple>
+<select name = "storitve" multiple class = "urediOkno">
 %for stor in seznam_storitev:
 <option value="{{stor['id']}}">{{stor['ime']}} {{stor['cena']}}</option>
 %end
 </select>
-<button type = "submit">POTRDI</button>
+<br/>
+<button type = "submit" class = "gumbOranzen">POTRDI</button>
 </form>

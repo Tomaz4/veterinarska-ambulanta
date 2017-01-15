@@ -1,9 +1,21 @@
 % rebase('base.tpl', title='Page Title')
-<ul>
+<style>
+.pozicija {
+	position:relative;
+	bottom: 150px;
+	left:270px;
+	}
+</style>
+<table>
+<tr>
+<th>IME STORITVE</th>
+<th>CENA</th>
+</tr>
 %for storitev in storitve:
-<li>
-{{storitev['ime']}}<br/>
-{{storitev['cena']}}
-</li>	
+<tr>
+
+<td>{{storitev['ime']}}</td>
+<td>{{storitev['cena']}}</td>	
+</tr>
 %end
-</ul>
+</table>

@@ -15,12 +15,12 @@ input[type = text] {
 </style>
 <div class = "pozicija">
 <form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/racun/" method = "GET">
-TEŽA: <input type = "text" name = "teza"/> <br/>
-AMBULANTA: <input type = "text" name = "ambulanta"/> <br/>
-TRAJANJE: <input type = "text" name = "trajanje"/> <br/>
-OPOMBE: <input type = "text" name = "opombe"/> <br/>
-SEZNAM ZDRAVIL: <br/>
-<select name="zdravila_form" multiple>
+<p class = "nasloviOken">TEŽA: </p> <input type = "text" name = "teza"/> <br/>
+<p class = "nasloviOken">AMBULANTA:</p> <input type = "text" name = "ambulanta"/> <br/>
+<p class = "nasloviOken">TRAJANJE:</p> <input type = "text" name = "trajanje"/> <br/>
+<p class = "nasloviOken">OPOMBE:</p> <input type = "text" name = "opombe"/> <br/>
+<p class = "nasloviOken">SEZNAM ZDRAVIL:</p> <br/>
+<select name="zdravila_form" multiple class = "urediOkno">
 %for zdr in zdravila:
 %    id_zdr = zdr['id']
 %    ime_zdr = zdr['ime']
@@ -28,8 +28,9 @@ SEZNAM ZDRAVIL: <br/>
 %end
 </select>
 <br/>
-VETERINAR:
-<select name="vet">
+<p class = "nasloviOken">VETERINAR:</p>
+<br/>
+<select name="vet" class = "urediOkno">
 %for veter in veterinarji:
 %   if veter['zaposlen'] == 'DA':
 %		id_veter = veter['id']
@@ -40,7 +41,8 @@ VETERINAR:
 %   end
 %end
 </select>
-<button type = "submit">Naprej</button>
+<br/>
+<button type = "submit" class = "gumbOranzen">Naprej</button>
 
 </form>
 </div>
