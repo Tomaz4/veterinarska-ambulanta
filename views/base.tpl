@@ -160,6 +160,7 @@ tr:nth-child(even){background-color: #f2f2f2}
 
 <body>
 <div class = "naslov">
+<img src="/views/kriz.png" style = "width:60px">
 <h1 style = "float:left; width:auto;"><a href = "/" style = "color: inherit;"> VETERINARSKA AMBULANTA </a></h1>
 </div>
 <div style = "clear:both">

@@ -8,9 +8,8 @@ def server_static(filename):
 
 @route('/')
 def domaca_stran():
-##    slika_ime1 = 'Cat_And_Dog.png'
-##    slika_ime2 = 'kriz.png'
-    #slika = slika_ime1, slikaKriz = slika_ime2
+    slika_ime1 = 'Cat_And_Dog.png'
+    slika_ime2 = 'kriz.png'
     return template('domaca_stran')
 
 @route('/poisci_zival/')
@@ -24,7 +23,12 @@ def poisci_zival():
 
 @route('/poisci_zival/informacije/<id_zivali>', method = "GET")
 def informacije(id_zivali):
-    return template('informacije',zival = id_zivali, podatki = model.vrni_obiske(id_zivali))
+    return template('informacije',zival = id_zivali, podatki = model.vrni_obiske(id_zivali), info = model.vrni_vse_o_zivali(id_zivali))
+
+@route('/poisci_zival/informacije/<id_zivali>/datum_smrti_opombe/', method = 'GET')
+def datum_smrti_opombe(id_zivali):
+    return template('datum_smrti_opombe')
+
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
 def dodaj_obisk(id_zivali):
     return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje())
@@ -237,8 +241,8 @@ def storitev_uredi_post(id_stor):
     except:
         redirect('/storitve/storitev_uredi/{0}/?napaka=1'.format(id_stor))
     redirect('/')
-run(debug = True)
-
 @route('/uredi_lastnika/')
 def uredi_lastnika():
     return template('uredi_lastnika')
+
+run(debug = True)

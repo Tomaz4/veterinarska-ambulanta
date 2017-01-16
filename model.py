@@ -529,4 +529,9 @@ def pridobi_cene_zdravil(sezzdravil):
     for el in sezzdravil:
         sez.append(list(con.execute(sql,[el]).fetchone()))
     return sez
+
+def vrni_vse_o_zivali(id_zivali):
+    sql = '''select zivali.ime, zivali.datum_rojstva, zivali.datum_smrti, zivali.opombe, zivali.spol, barva_zivali.barva,
+    pasma.pasme from zivali join barva_zivali on zivali.barva = barva_zivali.id join pasma on zivali.pasma = pasma.id where zivali.id = ?'''
+    return list(con.execute(sql,[id_zivali]))
         

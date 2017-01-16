@@ -21,9 +21,6 @@ $(document).ready(function(){
 		$("#prikazTabStor").hide()
 		$("#skrijTabStor").show();
     });
-});
-
-$(document).ready(function(){
     $("#skrijTabZdr").click(function(){
         $("#tabZdr").hide(1000);
 		$("#skrijTabZdr").hide()
@@ -34,6 +31,7 @@ $(document).ready(function(){
 		$("#prikazTabZdr").hide()
 		$("#skrijTabZdr").show();
     });
+	$("#tabZdr").hide();
 });
 </script>
 <h3 class = "podnaslov1">TABELA STORITEV</h6>
