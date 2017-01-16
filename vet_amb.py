@@ -252,10 +252,14 @@ def storitev_uredi_post(id_stor):
 @route('/uredi_lastnika/', method = 'GET')
 def uredi_lastnika():
     lastnik = request.query.lastnik
-    return template('uredi_lastnika', podatki = model.lastnik_podatki(lastnik))
+    return template('uredi_lastnika', podatki = model.lastnik_imena(lastnik))
+
+@route('/uredi_lastnika/<id_lastnik>/', method = 'GET')
+def uredi_lastnika_2(id_lastnik):
+    return template('lastnik', lastnik = id_lastnik, podatki = model.lastnik_podatki(id_lastnik))
 
 @route('/uredi_lastnika/<id_lastnik>/', method = 'POST')
-def uredi_lastnika_post():
+def uredi_lastnika_post(id_lastnik):
     pass
 
 run(debug = True)

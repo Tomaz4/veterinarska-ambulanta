@@ -562,3 +562,7 @@ veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id join storitve 
 def lastnik_podatki(id_lastnika):
     sql = '''select * from lastniki where id = ?'''
     return list(con.execute(sql,[id_lastnika]))
+
+def lastnik_imena(ime_lastnika):
+    sql = '''select * from lastniki where priimek = ?'''
+    return list(con.execute(sql,[ime_lastnika]))
