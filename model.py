@@ -566,3 +566,10 @@ def lastnik_podatki(id_lastnika):
 def lastnik_imena(ime_lastnika):
     sql = '''select * from lastniki where priimek = ?'''
     return list(con.execute(sql,[ime_lastnika]))
+
+def posodobi_lastnika(id_lastnika, ime, priimek, naslov, email, telefon):
+    sql = ''' update lastniki set ime = ?, priimek = ?, naslov = ?, email = ?, telefon = ? where id = ?'''
+    if ime == '' or priimek == '' or telefon == '':
+        raise Exception('napaka!')
+    con.execute(sql,[ime,priimek,naslov,email,telefon,id_lastnika])
+    con.commit()

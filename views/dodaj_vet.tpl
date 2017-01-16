@@ -23,7 +23,6 @@ bottom:150px;
 <option value = "DA">DA</option>
 <option value = "NE">NE</option>
 </select><br/>
-<button type = 'submit' class = "gumbOranzen">SHRANI</button>
+<button type = 'submit' class = "gumbOranzen">SHRANI</button>{{napaka}}
 </div>
-
 </form>

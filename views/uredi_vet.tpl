@@ -25,7 +25,7 @@
 %end
 </select>
 <br/>
-<button type = "submit" class = "gumbOranzen">POTRDI</button>
+<button type = "submit" class = "gumbOranzen">POTRDI</button>{{napaka}}
 </form>
 </body>
 </html>

@@ -140,7 +140,7 @@ def veterinar_storitve(id_vet):
     return template('vet_storitve', storitve = model.vrni_vet_storitev_vse(id_vet))
 
 @route('/veterinarji/dodaj_vet/')
-def dodaj_vet():
+def dodaj_vet(napaka = False):
     napaka = ''
     if request.query.napaka == '1':
         napaka = 'Napačen vnos podatkov!'
@@ -252,14 +252,26 @@ def storitev_uredi_post(id_stor):
 @route('/uredi_lastnika/', method = 'GET')
 def uredi_lastnika():
     lastnik = request.query.lastnik
-    return template('uredi_lastnika', podatki = model.lastnik_imena(lastnik))
+    return template('uredi_lastnika',podatki = model.lastnik_imena(lastnik))
 
 @route('/uredi_lastnika/<id_lastnik>/', method = 'GET')
 def uredi_lastnika_2(id_lastnik):
-    return template('lastnik', lastnik = id_lastnik, podatki = model.lastnik_podatki(id_lastnik))
+    napaka = ''
+    if request.query.napaka == '1':
+        napaka = 'Napačen vnos podatkov!'
+    return template('lastnik',napaka = napaka, lastnik = id_lastnik, podatki = model.lastnik_podatki(id_lastnik))
 
 @route('/uredi_lastnika/<id_lastnik>/', method = 'POST')
 def uredi_lastnika_post(id_lastnik):
-    pass
+    ime = request.forms.ime
+    priimek = request.forms.priimek
+    naslov = request.forms.naslov
+    email = request.forms.email
+    telefon = request.forms.telefon
+    try:
+        model.posodobi_lastnika(id_lastnik,ime,priimek,naslov,email,telefon)
+    except:
+        redirect('/uredi_lastnika/{0}/?napaka=1'.format(id_lastnik))
+    redirect('/')
 
 run(debug = True)
