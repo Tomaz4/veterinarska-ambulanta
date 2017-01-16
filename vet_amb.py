@@ -12,9 +12,9 @@ def domaca_stran():
     slika_ime2 = 'kriz.png'
     return template('domaca_stran')
 
-@route('/poisci_zival/')
-def poisci_zival():
-    return template('poisci_zival', podatki = "")
+##@route('/poisci_zival/')
+##def poisci_zival():
+##    return template('poisci_zival', podatki = "")
 
 @route('/poisci_zival/', method = 'GET')
 def poisci_zival():
@@ -27,7 +27,14 @@ def informacije(id_zivali):
 
 @route('/poisci_zival/informacije/<id_zivali>/datum_smrti_opombe/', method = 'GET')
 def datum_smrti_opombe(id_zivali):
-    return template('datum_smrti_opombe')
+    return template('datum_smrti_opombe', id_zivali = id_zivali, opombe_pod= model.pridobi_opombe(id_zivali))
+@route('/poisci_zival/informacije/<id_zivali>/datum_smrti_opombe/', method = 'POST')
+def datum_smrti_opombe_post(id_zivali):
+    # preberi podatke in posodobi bazo
+    opombe = request.forms.opomba
+    datum = request.forms.datum_smrti
+    model.posodobi_datum_smrti_opombe(id_zivali,opombe,datum)
+    redirect('/')
 
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
 def dodaj_obisk(id_zivali):
@@ -99,7 +106,8 @@ def dokoncaj_racun_post(id_zivali):
 
 @route('/poisci_zival/informacije/<id_zivali>/<id_obiska>')
 def vse_informacije_o_obisku(id_zivali,id_obiska):
-    return template('vse_informacije',podatki= model.vrni_vse_podatke_o_obisku(id_obiska))
+    return template('vse_informacije',podatki_zdravila = model.info_o_zdravilih(id_obiska), podatki_storitve = model.info_o_storitvah(id_obiska), podatki_obisk = model.info_o_obisku(id_obiska))
+
 
 @route('/veterinarji/')
 def veterinarji():
@@ -241,8 +249,13 @@ def storitev_uredi_post(id_stor):
     except:
         redirect('/storitve/storitev_uredi/{0}/?napaka=1'.format(id_stor))
     redirect('/')
-@route('/uredi_lastnika/')
+@route('/uredi_lastnika/', method = 'GET')
 def uredi_lastnika():
-    return template('uredi_lastnika')
+    lastnik = request.query.lastnik
+    return template('uredi_lastnika', podatki = model.lastnik_podatki(lastnik))
+
+@route('/uredi_lastnika/<id_lastnik>/', method = 'POST')
+def uredi_lastnika_post():
+    pass
 
 run(debug = True)

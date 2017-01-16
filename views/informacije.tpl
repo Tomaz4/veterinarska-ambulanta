@@ -8,6 +8,26 @@
 	}
 </style>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("#prikazi_tab").click(function(){
+		$("#skrij_tab").show();
+		$("#prikazi_tab").hide();
+		$("#tabObisk").show(1000);
+		
+    });
+	$("#skrij_tab").click(function(){
+		$("#prikazi_tab").show();
+		$("#skrij_tab").hide();
+		$("#tabObisk").hide(1000);
+		
+    });
+	$("#tabObisk").hide();
+	$("#skrij_tab").hide();
+});
+</script>
+
 <div class = "pozicija">
 <table>
 %info = info[0]
@@ -20,11 +40,15 @@
 <tr><th>DATUM SMRTI</th> <td>{{info['datum_smrti']}}</td> </tr>
 </table>
 
-<form action = "/poisci_zival/informacije/{{id_zivali}}/datum_smrti_opombe/" method = 'GET'>
+<form action = "/poisci_zival/informacije/{{zival}}/datum_smrti_opombe/" method = 'GET'>
 <button type = "submit" class = "gumbOranzen">Določi datum smrti/uredi opombe</button>
 </form>
 
-<table style = "clear:both">
+
+<button id = "prikazi_tab" class = "gumbOranzen">PRIKAŽI INFORMACIJE</button>
+<button id = "skrij_tab" class = "gumbOranzen">SKRIJ INFORMACIJE</button>
+
+<table id = "tabObisk" style = "clear:both">
 <tr>
 <th>DATUM OBISKA</th>
 <th>URA OBISKA</th>

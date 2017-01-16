@@ -32,6 +32,9 @@ $(document).ready(function(){
 		$("#skrijTabZdr").show();
     });
 	$("#tabZdr").hide();
+	$("#tabStor").hide();
+	$("#skrijTabStor").hide()
+	$("#skrijTabZdr").hide();
 });
 </script>
 <h3 class = "podnaslov1">TABELA STORITEV</h6>

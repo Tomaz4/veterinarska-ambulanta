@@ -235,9 +235,10 @@ def vrni_obiske(idZivali):
     return list(con.execute(sql,[idZivali]))
 
 def vrni_vse_podatke_o_obisku(idObiska):
-    sql = ''' select * from obisk join obisk_veterinar_storitev on obisk.id = obisk_veterinar_storitev.id_obiska join veterinar_storitev on obisk_veterinar_storitev.id_vet_storitev = veterinar_storitev.id join veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id join storitve on veterinar_storitev.id_storitve = storitve.id where obisk.id = ?'''
+    sql = ''' select * from obisk join obisk_veterinar_storitev on obisk.id = obisk_veterinar_storitev.id_obiska
+join veterinar_storitev on obisk_veterinar_storitev.id_vet_storitev = veterinar_storitev.id
+join veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id join storitve on veterinar_storitev.id_storitve = storitve.id where obisk.id = ?'''
     return list(con.execute(sql,[idObiska]))
-
 
 
 def izpisi_vsa_imena(imeZivali):
@@ -534,4 +535,30 @@ def vrni_vse_o_zivali(id_zivali):
     sql = '''select zivali.ime, zivali.datum_rojstva, zivali.datum_smrti, zivali.opombe, zivali.spol, barva_zivali.barva,
     pasma.pasme from zivali join barva_zivali on zivali.barva = barva_zivali.id join pasma on zivali.pasma = pasma.id where zivali.id = ?'''
     return list(con.execute(sql,[id_zivali]))
-        
+
+def pridobi_opombe(id_zivali):
+    sql = '''select opombe from zivali where id = ?'''
+    return list(con.execute(sql,[id_zivali]))
+
+def posodobi_datum_smrti_opombe(id_zivali,opombe,datum):
+    sql = ''' update zivali set opombe = ?, datum_smrti = ? where id = ?'''
+    con.execute(sql,[opombe,datum,id_zivali])
+    con.commit()
+
+def info_o_obisku(id_obiska):
+    sql = ''' select * from obisk where id = ?'''
+    return list(con.execute(sql,[id_obiska]))
+
+def info_o_zdravilih(id_obiska):
+    sql = '''select zdravila.ime from zdravilo_obisk join zdravila on zdravilo_obisk.id_zdravila = zdravila.id where id_obiska = ?'''
+    return list(con.execute(sql,[id_obiska]))
+
+def info_o_storitvah(id_obiska):
+    sql = '''select veterinarji.ime as vet, veterinarji.priimek, storitve.ime from obisk_veterinar_storitev join
+veterinar_storitev on obisk_veterinar_storitev.id_vet_storitev = veterinar_storitev.id join
+veterinarji on veterinar_storitev.id_veterinarja = veterinarji.id join storitve on veterinar_storitev.id_storitve = storitve.id where id_obiska = ?'''
+    return list(con.execute(sql,[id_obiska]))
+
+def lastnik_podatki(id_lastnika):
+    sql = '''select * from lastniki where id = ?'''
+    return list(con.execute(sql,[id_lastnika]))
