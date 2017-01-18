@@ -1,4 +1,13 @@
 % rebase('base.tpl', title='Page Title')
+
+<style>
+.pozicija {
+	position:relative;
+	bottom: 200px;
+	left:270px;
+	}
+</style>
+
 %pod = podatki[0]
 <form action = "/uredi_lastnika/{{pod['id']}}/" method = "POST">
 Ime: <input type = "text" name = "ime" value = "{{pod['ime']}}"/>

@@ -573,3 +573,44 @@ def posodobi_lastnika(id_lastnika, ime, priimek, naslov, email, telefon):
         raise Exception('napaka!')
     con.execute(sql,[ime,priimek,naslov,email,telefon,id_lastnika])
     con.commit()
+
+def pridobi_barvo(barva):
+    sql_barva = '''select id from barva_zivali where barva = ?'''
+    try:
+        id_barva = list(con.execute(sql_barva,[barva]).fetchone())[0]
+    except:
+        #barve ni notri
+        sql = '''insert into barva_zivali (barva) values (?)'''
+        con.execute(sql, [barva])
+        id_barva = list(con.execute(sql_barva,[barva]).fetchone())[0]
+        con.commit()
+    return id_barva
+
+def pridobi_pasmo(pasma):
+    pasma[0] = pasma[0].uper
+    sql_pasma = '''select id from pasma where pasme = ?'''
+    try:
+        id_pasme = list(con.execute(sql_pasma,[pasma]).fetchone())[0]
+    except:
+        #pasme ni notri
+        sql = '''insert into pasma (pasme) values (?)'''
+        con.execute(sql, [pasma])
+        id_pasme = list(con.execute(sql_pasma,[pasma]).fetchone())[0]
+        con.commit()
+    return id_pasme
+    
+def dodaj_zival(ime, barva, pasma, spol, datum_roj, id_lastnika, opombe):
+    sql = '''insert into zivali (ime, datum_rojstva, opombe, spol, id_lastnika, pasma,barva)
+    values (?,?,?,?,?,?,?)'''
+    id_barve = int(pridobi_barvo(barva))
+    id_pasme = int(pridobi_pasmo(pasma))
+    id_lastnika = int(id_lastnika)
+    con.execute(sql, [ime, datum_roj, opombe, spol, id_lastnika, id_pasme, id_barve]) 
+    con.commit()
+
+def dodaj_lastnika(ime, priimek, naslov,telefon, email):
+    sql = '''insert into lastniki (ime, priimek, email, naslov,telefon)
+    values (?,?,?,?,?)'''
+    cursor = con.cursor()
+    cursor.execute(sql, [ime, priimek, email,naslov, telefon]) 
+    return cursor.lastrowid

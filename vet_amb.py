@@ -161,13 +161,6 @@ def dodaj_vet_post():
         redirect('/veterinarji/dodaj_vet/?napaka=1')
     redirect('/')
 
-@route('/dodaj_zival/')
-def dodaj_zival():
-    return template('dodaj_zival')
-
-@route('/dodaj_zival_in_lastnika/')
-def dodaj_zival_in_lastnika():
-    return template('dodaj_zival_in_lastnika')
 
 @route('/storitve/')
 def storitve():
@@ -273,5 +266,40 @@ def uredi_lastnika_post(id_lastnik):
     except:
         redirect('/uredi_lastnika/{0}/?napaka=1'.format(id_lastnik))
     redirect('/')
+
+@route('/poisci_lastnika/', method = 'GET')
+def pridobi_lastnika():
+    lastnik = request.query.lastnik_okno
+    return template('poisci_lastnika', podatki = model.lastnik_imena(lastnik))
+
+@route('/dodaj_zival/<id_lastnika>/', method = 'GET')
+def dodaj_zival(id_lastnika):
+    return template('dodaj_zival', id_lastnika = id_lastnika)
+
+@route('/dodaj_zival/<id_lastnika>/', method = 'POST')
+def dodaj_zival_post(id_lastnika):
+    ime = request.forms.ime_zivali
+    barva = request.forms.barva_zivali
+    pasma = request.forms.pasma_zivali
+    spol = request.forms.spol
+    datum_roj = request.forms.datum_rojstva
+    opombe = request.forms.opombe
+    id_lastnika = id_lastnika
+    model.dodaj_zival(ime, barva, pasma, spol, datum_roj, id_lastnika, opombe)
+    redirect('/')
+
+@route('/dodaj_zival_in_lastnika/')
+def dodaj_zival_in_lastnika():
+    return template('dodaj_zival_in_lastnika')
+
+@route('/dodaj_zival_in_lastnika/', method = 'POST')
+def dodaj_zival_in_lastnika_post():
+    ime = request.forms.ime
+    priimek = request.forms.priimek
+    naslov = request.forms.naslov
+    telefon = request.forms.telefon
+    email = request.forms.email
+    id_lastnika = model.dodaj_lastnika(ime, priimek, naslov, telefon, email)
+    redirect('/dodaj_zival/<id_lastnika>/')
 
 run(debug = True)

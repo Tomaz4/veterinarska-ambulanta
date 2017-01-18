@@ -169,7 +169,7 @@ tr:nth-child(even){background-color: #f2f2f2}
   <li><a href="/poisci_zival/">Poišči žival</a></li>
   <li><a href="#">Dodaj žival</a>
 	<ul class = "zaviti-robovi">
-		<li><a href = "/dodaj_zival/">Dodaj žival z obstoječim lastnikom</a></li>
+		<li><a href = "/poisci_lastnika/">Dodaj žival z obstoječim lastnikom</a></li>
 		<li><a href = "/dodaj_zival_in_lastnika/">Dodaj žival in lastnika</a></li>
 	</ul>
   </li>
