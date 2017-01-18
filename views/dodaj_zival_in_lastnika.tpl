@@ -9,10 +9,10 @@
 </style>
 
 <form action = '/dodaj_zival_in_lastnika/' method = 'POST'>
-Ime lastnika <input type = "text" name = "ime"/> </br>
-Priimek lastnika <input type = "text" name = "priimek"/> </br>
-Naslov <input type = "text" name = "naslov"/> </br>
-Telefon <input type = "text" name = "telefon"/> </br>
-Email <input type = "text" name = "email"/> </br>
+<p class = "nasloviOken">Ime lastnika</p> <input type = "text" name = "ime"/> </br>
+<p class = "nasloviOken">Priimek lastnika</p> <input type = "text" name = "priimek"/> </br>
+<p class = "nasloviOken">Naslov</p> <input type = "text" name = "naslov"/> </br>
+<p class = "nasloviOken">Telefon</p> <input type = "text" name = "telefon"/> </br>
+<p class = "nasloviOken">Email</p> <input type = "text" name = "email"/> </br>
 <button type = 'submit' class = 'gumbOranzen'>POTRDI</button>
 </form>

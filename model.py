@@ -587,7 +587,6 @@ def pridobi_barvo(barva):
     return id_barva
 
 def pridobi_pasmo(pasma):
-    pasma[0] = pasma[0].uper
     sql_pasma = '''select id from pasma where pasme = ?'''
     try:
         id_pasme = list(con.execute(sql_pasma,[pasma]).fetchone())[0]

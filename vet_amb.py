@@ -300,6 +300,6 @@ def dodaj_zival_in_lastnika_post():
     telefon = request.forms.telefon
     email = request.forms.email
     id_lastnika = model.dodaj_lastnika(ime, priimek, naslov, telefon, email)
-    redirect('/dodaj_zival/<id_lastnika>/')
+    redirect('/dodaj_zival/{0}/'.format(id_lastnika))
 
 run(debug = True)
