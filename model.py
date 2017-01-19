@@ -347,6 +347,9 @@ def pridobi_podatke_storitev(idStor):
     sql = '''select cena,ime from storitve where id = ?'''
     return list(con.execute(sql,[idStor]).fetchone())
 
+def ime_zdravila(id_zdr):
+    sql = '''select ime from zdravila where id = ?'''
+    return list(con.execute(sql,[id_zdr]).fetchone())[0]
 def zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterinar_id,sezKolicinZdravil,seznamStoritev,teza,id_zivali):
     # pazi da imaš za vsa zdravila dovolj zaloge!!!
     for i in range(len(seznam_zdravil_id)):
@@ -355,7 +358,7 @@ def zakljuci_racun(datum,ura,trajanje,ambulanta,opombe,seznam_zdravil_id,veterin
         trenutna_zaloga = zdravilo_podatki[0]
         zeljena_kolicina = int(sezKolicinZdravil[i])
         if zeljena_kolicina > trenutna_zaloga:
-            raise Exception("premalo izdelka")
+            raise Exception("{0}".format(element))
     cena = 0
     for i in range(len(seznam_zdravil_id)):
         element = int(seznam_zdravil_id[i])
@@ -576,6 +579,7 @@ def posodobi_lastnika(id_lastnika, ime, priimek, naslov, email, telefon):
 
 def pridobi_barvo(barva):
     sql_barva = '''select id from barva_zivali where barva = ?'''
+    barva = barva.lower()
     try:
         id_barva = list(con.execute(sql_barva,[barva]).fetchone())[0]
     except:
@@ -588,6 +592,8 @@ def pridobi_barvo(barva):
 
 def pridobi_pasmo(pasma):
     sql_pasma = '''select id from pasma where pasme = ?'''
+    pasma2 = pasma.lower()
+    pasma = pasma2[0].upper() + pasma2[1:]
     try:
         id_pasme = list(con.execute(sql_pasma,[pasma]).fetchone())[0]
     except:
@@ -601,6 +607,8 @@ def pridobi_pasmo(pasma):
 def dodaj_zival(ime, barva, pasma, spol, datum_roj, id_lastnika, opombe):
     sql = '''insert into zivali (ime, datum_rojstva, opombe, spol, id_lastnika, pasma,barva)
     values (?,?,?,?,?,?,?)'''
+    if ime == "" or barva == "" or pasma == "" or datum_roj == "":
+        raise Exception('napaka')
     id_barve = int(pridobi_barvo(barva))
     id_pasme = int(pridobi_pasmo(pasma))
     id_lastnika = int(id_lastnika)
@@ -610,6 +618,8 @@ def dodaj_zival(ime, barva, pasma, spol, datum_roj, id_lastnika, opombe):
 def dodaj_lastnika(ime, priimek, naslov,telefon, email):
     sql = '''insert into lastniki (ime, priimek, email, naslov,telefon)
     values (?,?,?,?,?)'''
+    if ime == "" or priimek == "" or telefon == "":
+        raise Exception('napaka!')
     cursor = con.cursor()
     cursor.execute(sql, [ime, priimek, email,naslov, telefon]) 
     return cursor.lastrowid

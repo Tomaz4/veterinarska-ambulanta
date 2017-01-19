@@ -22,5 +22,8 @@
 </select>
 <br/>
 <button type = "submit" class = "gumbOranzen">POTRDI</button>
+%if napaka:
+napačen vnos!
+%end
 </form>
 </div>

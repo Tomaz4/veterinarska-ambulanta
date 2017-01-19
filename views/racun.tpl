@@ -26,4 +26,5 @@
 </select>
 <br/>
 <button type = "submit" class = "gumbOranzen">POTRDI</button>
+{{napaka}}
 </form>
