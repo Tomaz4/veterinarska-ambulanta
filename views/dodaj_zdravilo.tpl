@@ -8,13 +8,13 @@
 </style>
 <div class = "pozicija">
 <form action='/storitve/dodaj_zdravilo/' method = 'POST'>
-<p class = "nasloviOken">Ime zdravila:</p> <input name = "ime_zdr" type = "text"/>
+<p class = "nasloviOken">Ime zdravila:</p> <input name = "ime_zdr" value = "{{ime}}" type = "text"/>
 <br/>
-<p class = "nasloviOken">Cena zdravila:</p> <input name = "cena_zdr" type = "text"/>
+<p class = "nasloviOken">Cena zdravila:</p> <input name = "cena_zdr" value = "{{cena}}" type = "text"/>
 <br/>
-<p class = "nasloviOken">Minimalna zaloga:</p> <input name = "minimalna_zaloga" type = "text"/>
+<p class = "nasloviOken">Minimalna zaloga:</p> <input name = "minimalna_zaloga" value = "{{min_zaloga}}" type = "text"/>
 <br/>
-<p class = "nasloviOken">Trenutna zaloga:</p> <input name = "trenutna_zaloga" type = "text"/>
+<p class = "nasloviOken">Trenutna zaloga:</p> <input name = "trenutna_zaloga" value = "{{trenutna_zaloga}}" type = "text"/>
 <br/>
 <p class = "nasloviOken">Recept:</p> <select name = "recept" class ="uredi_select">
 <option value= "DA">DA</option>
@@ -22,7 +22,5 @@
 </select>
 <br/>
 <button type = "submit" class = "gumbOranzen">POTRDI</button>
-
-{{napaka}}
 </form>
 </div>

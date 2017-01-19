@@ -190,7 +190,7 @@ def dodaj_zdravilo(napaka = False):
     napaka = ""
     if request.query.napaka == "1":
         napaka = "Napačen vnos podatkov!"
-    return template('dodaj_zdravilo', napaka = napaka)
+    return template('dodaj_zdravilo', napaka = napaka, ime = "", cena = "", min_zaloga = "", trenutna_zaloga = "")
 @route('/storitve/dodaj_zdravilo/', method = 'POST')
 def dodaj_zdravilo_post():
     ime = request.forms.ime_zdr
@@ -201,7 +201,7 @@ def dodaj_zdravilo_post():
     try:
         model.dodaj_zdravilo(ime,cena,min_zaloga,recept,trenutna_zaloga)
     except Exception as e:
-        redirect('/storitve/dodaj_zdravilo/?napaka=1')
+        return template('dodaj_zdravilo', ime = ime,cena = cena,min_zaloga=min_zaloga,trenutna_zaloga=trenutna_zaloga)
     redirect('/')
 
 @route('/storitve/dodaj_storitev/', method = 'GET')
