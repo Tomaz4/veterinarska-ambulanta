@@ -46,7 +46,7 @@
 <table>
 <tr>
 <th>IME</th>
-<th>KOLIČINA</th>
+<th>CENA</th>
 </tr>
 %for el in seznam_storitev_ime_cena:
 <tr>
