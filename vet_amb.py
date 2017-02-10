@@ -35,7 +35,7 @@ def datum_smrti_opombe_post(id_zivali):
 
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/', method = "GET")
 def dodaj_obisk(id_zivali):
-    return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje())
+    return template('dodaj_obisk',zival = id_zivali, zdravila = model.vrni_zdravila(), veterinarji = model.vrni_vse_veterinarje(), pod_zival = model.vrni_vse_o_zivali(id_zivali))
     
 @route('/poisci_zival/informacije/<id_zivali>/dodaj_obisk/racun/', method = "GET")
 def dokoncaj_racun(id_zivali):
@@ -121,7 +121,7 @@ def uredi_vet_post(id_vet):
 
 @route('/veterinarji/<id_vet>')
 def veterinar_storitve(id_vet):
-    return template('vet_storitve', storitve = model.vrni_vet_storitev_vse(id_vet))
+    return template('vet_storitve', storitve = model.vrni_vet_storitev_vse(id_vet), pod_vet = model.pridobi_vse_vet_podatke(id_vet))
 
 @route('/veterinarji/dodaj_vet/')
 def dodaj_vet():
@@ -253,7 +253,7 @@ def pridobi_lastnika():
 
 @route('/dodaj_zival/<id_lastnika>/', method = 'GET')
 def dodaj_zival(id_lastnika):
-    return template('dodaj_zival', id_lastnika = id_lastnika, ime = "", barva = "", pasma = "", datum_roj = "", opombe = "", napaka = False)
+    return template('dodaj_zival', lastnik_pod = model.lastnik_podatki(id_lastnika), id_lastnika = id_lastnika, ime = "", barva = "", pasma = "", datum_roj = "", opombe = "", napaka = False)
 
 @route('/dodaj_zival/<id_lastnika>/', method = 'POST')
 def dodaj_zival_post(id_lastnika):

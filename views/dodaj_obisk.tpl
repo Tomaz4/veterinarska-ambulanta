@@ -3,8 +3,8 @@
 <style>
 .pozicija {
 	position:relative;
-	bottom: 70px;
-	left:170px;
+	bottom: 100px;
+	left:130px;
 	}
 input[type = text] {
 	height: 20px;
@@ -12,7 +12,29 @@ input[type = text] {
 	position: relative;
 	left: 50px;
 }
+.poz {
+	position: relative;
+	bottom: 150px;
+	left: 150px;
+}
 </style>
+%for pod in pod_zival:
+%	ime_zivali = pod[0]
+% 	barva_zivali = pod[5]
+% 	pasma_zivali = pod[6]
+%	spol = pod[4]
+% if(spol == "Female"):
+%	spol = "Samica"
+% else:
+%	spol = "samec"
+%end 
+%end
+<div class = "poz">
+<h2 style = "color: orange;">IME ŽIVALI: {{ime_zivali}} </h2>
+<h2 style = "color: orange;">BARVA: {{barva_zivali}} </h2>
+<h2 style = "color: orange;">PASMA: {{pasma_zivali}} </h2>
+<h2 style = "color: orange;">SPOL: {{spol}} </h2>
+</div>
 <div class = "pozicija">
 <form action = "/poisci_zival/informacije/{{zival}}/dodaj_obisk/racun/" method = "GET">
 <p class = "nasloviOken">TEŽA: </p> <input type = "text" name = "teza"/> <br/>
